@@ -1,0 +1,29 @@
+
+.box_content{
+    margin:0;
+    background-color:antiquewhite;
+    text-align:left;
+
+}
+.cv_header{
+    font-size: 20px;
+    text-align: center;
+    margin:10px;
+}
+.cv_autofont{
+    
+    font-size:8px !important;
+}
+.noti{
+    width:1000px;
+}
+.icon_login{
+    width:30%; 
+}
+.cv-danger{
+    color:#c52323;
+}
+.cv-clean{
+    color:#fff;
+}
+
