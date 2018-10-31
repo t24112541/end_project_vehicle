@@ -71,7 +71,7 @@
     },
     methods:{
       list_department(d_id){
-        this.$router.push({path: '../manage/department/department_edit?d_id='+d_id})
+        this.$router.push({path: '../manage/department/edit_dep?d_id='+d_id})
         // this.$router.replace('../manage/department/department_edit?d_id='+d_id)
       },
      

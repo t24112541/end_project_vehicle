@@ -44,10 +44,13 @@
 </template>
 
 <script>
+var moment =require("moment");
   export default {
+    
     layout: 'manage',
     data () {
       return {
+        moment:moment,
         state:false,
         search: '',
         pagination: {},
@@ -67,7 +70,7 @@
     async created(){
       this.state=true
      let res=await this.$http.get('/log_list/log_department')
-    //  console.log(res.data.department)
+    //  console.log(res.data)
      this.datas=res.data.datas
      this.state=false
     },
@@ -75,7 +78,8 @@
       pages () {
         if (this.pagination.rowsPerPage == null || this.pagination.totalItems == null) return 0
         return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
-      }
+      },
+      
     },
     methods:{
       log_department(run_id){

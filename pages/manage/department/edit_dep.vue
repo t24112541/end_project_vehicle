@@ -96,7 +96,12 @@
         methods:{
           conf_del(){this.conf_del=true},
           async dep_del(){//console.log("dep_del")
-            let res=await this.$http.get('/department/dep_del/'+this.$route.query.d_id)
+            let res=await this.$http.post('/department/dep_del/',{
+              d_id:this.$route.query.d_id,
+              d_code:this.d_code,
+              d_name:this.d_name,
+              u_id:sessionStorage.getItem("id")
+            })
             if(res.data.ok==true){this.$router.push({name:"manage-department"})}
             else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
           },
@@ -112,6 +117,7 @@
               d_code:this.d_code,
               d_name:this.d_name,
               d_id:d_id,
+              u_id:sessionStorage.getItem("id")
             })
             console.log(res.data)
               if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}

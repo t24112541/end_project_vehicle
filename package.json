@@ -16,6 +16,8 @@
   "dependencies": {
     "@nuxtjs/proxy": "^1.2.4",
     "@nuxtjs/pwa": "^2.0.8",
+    "ajv": "^6.0.0",
+    "ajv-keywords": "^3.2.0",
     "axios": "^0.18.0",
     "cross-env": "^5.1.4",
     "express": "^4.16.3",
@@ -24,6 +26,7 @@
     "nuxt": "^1.4.0",
     "socket.io-client": "^2.1.0",
     "vue-axios": "^2.1.1",
+    "vue-moment": "^4.0.0",
     "vuetify": "^1.0.17"
   },
   "devDependencies": {
