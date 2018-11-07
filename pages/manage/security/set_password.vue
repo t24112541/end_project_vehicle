@@ -11,8 +11,10 @@
         <v-card-title
           class="grey lighten-4 py-4 title"
         >
+        <v-flex xs9 >
           ตั้งค่าความปลอดภัย 
-          <v-spacer></v-spacer>
+        </v-flex>
+        <v-flex xs2 >
           <v-btn
             color="green lighten-2"
             flat
@@ -21,18 +23,7 @@
             <i v-if="isEditing" class="fas fa-times fa-2x"></i>
             <i v-else class="fas fa-edit fa-2x "></i>
           </v-btn>
-          <v-dialog v-model="conf_del" persistent max-width="290">
-            <v-btn slot="activator" flat color="red lighten-2"><i class="fas fa-trash-alt fa-2x"></i></v-btn>
-            <v-card>
-              <v-card-title class="headline">ยืนยันการลบข้อมูล</v-card-title>
-              <v-card-text>ต้องการลบข้อมูลรหัส {{t_code}}<br> ใช่หรือไม่?</v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="red lighten-2" flat @click.native="conf_del = false">ไม่ใช่</v-btn>
-                <v-btn color="primary" flat @click="teacher_del()">ใช่</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+        </v-flex>
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
