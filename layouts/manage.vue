@@ -121,7 +121,7 @@
       </v-btn>
       -->
     </v-toolbar>
-    <v-content>
+    <v-content style="background-color:#cccccc">
       <v-container  xs12 >
 
             <nuxt/>

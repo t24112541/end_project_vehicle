@@ -1,6 +1,6 @@
 
 <template>
-    <v-card>
+    <v-card  @keypress.enter="dep_update(d_id)">
       <v-alert
         v-model="danger"
         dismissible
@@ -107,7 +107,10 @@
               d_name:this.d_name,
               u_id:sessionStorage.getItem("id")
             })
-            if(res.data.ok==true){this.$router.push({name:"manage-department"})}
+            if(res.data.ok==true){
+              this.isEditing=!this.isEditing
+              this.$router.push({name:"manage-department"})
+            }
             else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
           },
           async sh_dep(){
@@ -125,7 +128,10 @@
               u_id:sessionStorage.getItem("id")
             })
             console.log(res.data)
-              if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
+              if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt
+                this.isEditing=!this.isEditing
+                this.$router.push({name: 'manage-department'})
+              }
              else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
           },
           department(){
