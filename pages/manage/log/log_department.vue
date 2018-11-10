@@ -25,14 +25,12 @@
       </v-tooltip>
     </template>
     <template slot="items" slot-scope="props">
-      <!-- <tr v-on:click="log_department(props.item.run_id)"> -->
-        <td class="text-xs-left">{{ props.item.d_log_work }}</td>
-        <td class="text-xs-left">{{ props.item.d_log_date }}</td>
-        <td class="text-xs-left">{{ props.item.d_code }}</td>
+      <tr v-on:click="log_department_show(props.item.d_id)">
+        <td class="text-xs-center">{{ props.item.count }}</td>
         <td class="text-xs-left">{{ props.item.d_name }}</td>
         <td class="text-xs-left">{{ props.item.u_id }}</td>
 
-      <!-- </tr> -->
+      </tr>
     </template>
      <template slot="no-data">
         <v-alert :value="true" color="error" icon="warning">
@@ -57,9 +55,7 @@ var moment =require("moment");
         selected: [],
         rows_per_page:[10,20,{"text":"แสดงทั้งหมด","value":-1}],//////////////////////////   teach me pleas!
         headers: [
-          { text: 'การทำงาน', value: 'การทำงาน',align: 'left',sortable: false,  },
-          { text: 'วันที่ทำงาน', value: 'วันที่ทำงาน',align: 'left',sortable: false,  },
-          { text: 'รหัสแผนก', value: 'รหัสแผนก',align: 'left',sortable: false, },
+          { text: 'การทำงาน', value: 'การทำงาน',align: 'center',sortable: false,  },
           { text: 'ชื่อแผนก', value: 'ชื่อแผนก',align: 'left',sortable: false,  },
           { text: 'ผู้ดำเนินการ', value: 'ผู้ดำเนินการ',align: 'left',sortable: false,  },
           
@@ -82,8 +78,8 @@ var moment =require("moment");
       
     },
     methods:{
-      log_department(run_id){
-        this.$router.push({path: '../manage/department/department_edit?run_id='+run_id})
+      log_department_show(d_id){
+        this.$router.push({path: '../log/show_log_depart?d_id='+d_id})
       },
      
     }
