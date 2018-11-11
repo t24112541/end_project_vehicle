@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="cv_header">กลุ่มการเรียน</div>
+    <v-card>
+    <div class="cv_header padding-top-mn" >กลุ่มการเรียน</div>
   <v-data-table
       :headers="headers"
       :items="group"
@@ -27,7 +28,7 @@
       <tr v-on:click="list_group(props.item.g_id)">
         <td class="text-xs-left">{{ props.item.g_code }}</td>
         <td class="text-xs-left">{{ props.item.g_name }}</td>
-        <td class="text-xs-left">{{ props.item.d_code }}</td>
+        <td class="text-xs-left">{{ props.item.d_name }}</td>
 
       </tr>
     </template>
@@ -37,6 +38,7 @@
         </v-alert>
       </template>
   </v-data-table>
+    </v-card>
   </div>
 </template>
 
@@ -61,7 +63,7 @@
     async created(){
       this.state=true
       let res=await this.$http.get('/group/list')
-      //  console.log(res.data.datas)
+      //  console.log(res.data)
       this.group=res.data.datas
       // console.log("num=".res.data.num)
       this.state=false

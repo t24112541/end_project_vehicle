@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="cv_header">ข้อมูลนักเรียน / นักศึกษา</div>
+  <div><v-card>
+    <div class="cv_header padding-top-mn" >ข้อมูลนักเรียน / นักศึกษา</div>
     <div class="cv_header xs12">
       
     </div>
@@ -45,7 +45,7 @@
         </v-alert>
       </template>
   </v-data-table>
-
+  </v-card>
   </div>
 </template>
 

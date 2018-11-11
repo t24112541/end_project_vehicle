@@ -1,6 +1,6 @@
 
 <template>
-    <v-card>
+    <v-card @keypress.enter="group_add()">
       <v-alert
         v-model="danger"
         dismissible
@@ -91,14 +91,15 @@
                 g_code:this.g_code,
                 g_name:this.g_name,
                 d_code:this.d_code,
-  
+                u_id:sessionStorage.getItem("id")
               })
-              if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
+              if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt,
+                this.$router.push({name:"manage-group"})
+              }
               else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
             }else{this.danger=true,this.alt_txt="กรุณากรอกข้อมูลให้ครบ",this.type_api="error"}
           },
           group(){
-            // this.$router.replace("../group")
             this.$router.push({name:"manage-group"})
           },
         }

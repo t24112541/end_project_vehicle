@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="cv_header">แผนกวิชา</div>
+    <v-card>
+    <div class="cv_header padding-top-mn" >แผนกวิชา</div>
   <v-data-table
       :headers="headers"
       :items="department"
@@ -36,6 +37,7 @@
         </v-alert>
       </template>
   </v-data-table>
+    </v-card>
   </div>
 </template>
 

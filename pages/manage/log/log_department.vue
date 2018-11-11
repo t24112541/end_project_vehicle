@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h2 align="center">บันทึกการทำงาน</h2>
+    <v-card>
+    <h2 align="center" class="padding-top-mn">บันทึกการทำงาน</h2>
     <div class="cv_header">แผนกวิชา</div>
   <v-data-table
       :headers="headers"
@@ -38,6 +39,7 @@
         </v-alert>
       </template>
   </v-data-table>
+    </v-card>
   </div>
 </template>
 
