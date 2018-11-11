@@ -122,7 +122,13 @@
         methods:{
           conf_del(){this.conf_del=true},
           async group_del(){//console.log("group_del")
-            let res=await this.$http.get('/group/group_del/'+this.$route.query.g_id)
+            let res=await this.$http.post('/group/group_del/',{
+              g_code:this.g_code,
+              g_name:this.g_name,
+              d_code:this.d_code,
+              g_id:this.$route.query.g_id,
+              u_id:sessionStorage.getItem("id")
+            })
             if(res.data.ok==true){this.$router.push({name:"manage-group"})}
             else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
           },
@@ -142,6 +148,7 @@
               g_name:this.g_name,
               d_code:this.d_code,
               g_id:g_id,
+              u_id:sessionStorage.getItem("id")
             })
             console.log(res.data)
               if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt,this.sh_group()}

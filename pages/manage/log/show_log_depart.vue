@@ -68,6 +68,7 @@ var moment =require("moment");
     layout: 'manage',
     data () {
       return {
+        danger:false,
         d_name:"",
         moment:moment,
         state:false,
@@ -114,8 +115,7 @@ var moment =require("moment");
               target:"pk_department",
               u_id:sessionStorage.getItem("id")
             })
-            console.log(res.data)
-              if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt
+              if(res.data.ok==true){//this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt
                 this.$router.push({name: 'manage-department'})
               }
               else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}  

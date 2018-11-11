@@ -2,7 +2,7 @@
   <div>
     <v-card>
     <h2 align="center" class="padding-top-mn">บันทึกการทำงาน</h2>
-    <div class="cv_header">แผนกวิชา</div>
+    <div class="cv_header">กลุ่มการเรียน</div>
   <v-data-table
       :headers="headers"
       :items="datas"
@@ -26,8 +26,9 @@
       </v-tooltip>
     </template>
     <template slot="items" slot-scope="props">
-      <tr v-on:click="log_department_show(props.item.d_id)">
+      <tr v-on:click="log_group_show(props.item.g_id)">
         <td class="text-xs-center">{{ props.item.count }}</td>
+        <td class="text-xs-left">{{ props.item.g_name }}</td>
         <td class="text-xs-left">{{ props.item.d_name }}</td>
         <td class="text-xs-left">{{ props.item.u_id }}</td>
 
@@ -35,7 +36,7 @@
     </template>
      <template slot="no-data">
         <v-alert :value="true" color="error" icon="warning">
-          ไม่พบข้อมูล :(
+         (-_-!) ไม่พบข้อมูล 
         </v-alert>
       </template>
   </v-data-table>
@@ -58,7 +59,7 @@ var moment =require("moment");
         rows_per_page:[10,20,{"text":"แสดงทั้งหมด","value":-1}],//////////////////////////   teach me pleas!
         headers: [
           { text: 'การทำงาน', value: 'การทำงาน',align: 'center',sortable: false,  },
-          { text: 'ชื่อแผนก', value: 'ชื่อแผนก',align: 'left',sortable: false,  },
+          { text: 'ชื่อกลุ่มการเรียน', value: 'ชื่อกลุ่มการเรียน',align: 'left',sortable: false,  },
           { text: 'ผู้ดำเนินการ', value: 'ผู้ดำเนินการ',align: 'left',sortable: false,  },
           
         ],
@@ -67,10 +68,10 @@ var moment =require("moment");
     },
     async created(){
       this.state=true
-     let res=await this.$http.get('/log_list/log_department')
-    //  console.log(res.data)
-     this.datas=res.data.datas
-     this.state=false
+      let res=await this.$http.get('/log_list/log_group')
+      //  console.log(res.data)
+      this.datas=res.data.datas
+      this.state=false
     },
     computed: {
       pages () {
@@ -80,8 +81,8 @@ var moment =require("moment");
       
     },
     methods:{
-      log_department_show(d_id){
-        this.$router.push({path: '../log/show_log_depart?d_id='+d_id})
+      log_group_show(g_id){
+        this.$router.push({path: '../log/show_log_groupt?g_id='+g_id})
       },
      
     }
