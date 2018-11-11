@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="cv_header">ข้อมูลยานพาหนะ</div>
+    <v-card>
+    <div class="cv_header padding-top-mn" >ข้อมูลยานพาหนะ</div>
     <div class="cv_header xs12">
       
     </div>
@@ -42,7 +43,7 @@
         </v-alert>
       </template>
   </v-data-table>
-
+    </v-card>
   </div>
 </template>
 

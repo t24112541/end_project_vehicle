@@ -28,6 +28,7 @@
     <template slot="items" slot-scope="props">
       <tr v-on:click="log_group_show(props.item.g_id)">
         <td class="text-xs-center">{{ props.item.count }}</td>
+        <td class="text-xs-left">{{ props.item.g_code }}</td>
         <td class="text-xs-left">{{ props.item.g_name }}</td>
         <td class="text-xs-left">{{ props.item.d_name }}</td>
         <td class="text-xs-left">{{ props.item.u_id }}</td>
@@ -45,13 +46,13 @@
 </template>
 
 <script>
-var moment =require("moment");
+
   export default {
     
     layout: 'manage',
     data () {
       return {
-        moment:moment,
+
         state:false,
         search: '',
         pagination: {},
@@ -59,7 +60,9 @@ var moment =require("moment");
         rows_per_page:[10,20,{"text":"แสดงทั้งหมด","value":-1}],//////////////////////////   teach me pleas!
         headers: [
           { text: 'การทำงาน', value: 'การทำงาน',align: 'center',sortable: false,  },
+          { text: 'รหัสกลุ่มการเรียน', value: 'รหัสกลุ่มการเรียน',align: 'left',sortable: false,  },
           { text: 'ชื่อกลุ่มการเรียน', value: 'ชื่อกลุ่มการเรียน',align: 'left',sortable: false,  },
+          { text: 'แผนกวิชา', value: 'แผนกวิชา',align: 'left',sortable: false,  },
           { text: 'ผู้ดำเนินการ', value: 'ผู้ดำเนินการ',align: 'left',sortable: false,  },
           
         ],
@@ -82,7 +85,7 @@ var moment =require("moment");
     },
     methods:{
       log_group_show(g_id){
-        this.$router.push({path: '../log/show_log_groupt?g_id='+g_id})
+        this.$router.push({path: '../log/show_log_group?g_id='+g_id})
       },
      
     }

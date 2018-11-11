@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="cv_header">ข้อมูลครู / บุคลากร</div>
+  <div><v-card>
+    <div class="cv_header padding-top-mn" >ข้อมูลครู / บุคลากร</div>
   <v-data-table
       :headers="headers"
       :items="teacher"
@@ -37,6 +37,7 @@
         </v-alert>
       </template>
   </v-data-table>
+  </v-card>
   </div>
 </template>
 

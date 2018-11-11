@@ -1,6 +1,6 @@
 
 <template>
-    <v-card>
+    <v-card @keypress.enter="group_update(g_id)">
       <v-alert
         v-model="danger"
         dismissible
@@ -87,7 +87,7 @@
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-btn flat color="green darken-3" @click="student(g_code)"><i class="fas fa-users fa-2x"></i> นักเรียนในกลุ่ม {{nums}} คน</v-btn>
+          <v-btn flat color="green darken-3" @click="student(g_code)"><i class="fas fa-users fa-2x"></i> นักเรียนในกลุ่ม {{nums.count}} คน</v-btn>
           <v-spacer></v-spacer>
           
           <v-btn flat color="red lighten-2" @click="group()">ย้อนกลับ</v-btn>
@@ -134,12 +134,12 @@
           },
           async sh_group(){
             let res=await this.$http.get('/group/sh_group/'+this.$route.query.g_id)
-            // console.log("api return=".res.data.datas)
+            // console.log(res.data)
             this.g_id=this.$route.query.g_id
             this.g_code=res.data.datas.g_code
             this.g_name=res.data.datas.g_name
             this.d_code=res.data.datas.d_code
-            this.nums=res.data.nums
+            this.nums=res.data.nums[0]
           },
           async group_update(g_id){
             //console.log("g_id"+g_id)
@@ -150,8 +150,9 @@
               g_id:g_id,
               u_id:sessionStorage.getItem("id")
             })
-            console.log(res.data)
-              if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt,this.sh_group()}
+              if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt,this.sh_group(),
+                this.$router.push({name:"manage-group"})
+              }
              else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
           },
           group(){
