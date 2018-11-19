@@ -2,7 +2,7 @@
  <div id="app">
   <v-app id="inspire" class="grey lighten-4">
     <v-content>
-      <v-container >
+      <v-container @keypress.enter="fnc_login()" >
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12" color="write lighten-4">
@@ -16,7 +16,7 @@
               <v-card-text>
                 <center><img :src="require('@/static/image/icon.png')" class="icon_login"></center>
                 <v-toolbar-title style="text-align:center"><h3>เข้าสู่ระบบ</h3></v-toolbar-title>
-                <v-form>
+                <v-form  >
                   <v-text-field :rules="[rules.required]" v-model="username" prepend-icon="person" name="username" label="ชื่อผู้ใช้" type="text"></v-text-field>
                   <v-text-field :rules="[rules.required]" v-model="password" prepend-icon="lock" name="password" label="รหัสผ่าน" id="password" type="password"></v-text-field>
                 </v-form>
@@ -89,6 +89,13 @@ export default {
             sessionStorage.setItem("status",(res.data.status))
             this.$router.push({name:"manage-machines"})
             // console.log(res.data)
+          }else if(res.data.status=="admin"){
+            sessionStorage.setItem("id",res.data.login[0].a_id)
+            sessionStorage.setItem("username",res.data.login[0].a_username)
+            sessionStorage.setItem("password",(res.data.login[0].a_password))
+            sessionStorage.setItem("status",(res.data.status))
+            this.$router.push({name:"manage-machines"})
+            // console.log(res.data.login)
           }else if(res.data.status=="bld"){
             sessionStorage.setItem("id",res.data.login.bld_username)
             sessionStorage.setItem("username",res.data.login.bld_username)

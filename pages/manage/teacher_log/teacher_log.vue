@@ -2,7 +2,7 @@
   <div>
     <v-card>
     <h2 align="center" class="padding-top-mn">บันทึกการทำงาน</h2>
-    <div class="cv_header">กลุ่มการเรียน</div>
+    <div class="cv_header">ข้อมูลครู / บุคลากร</div>
   <v-data-table
       :headers="headers"
       :items="datas"
@@ -26,10 +26,10 @@
       </v-tooltip>
     </template>
     <template slot="items" slot-scope="props">
-      <tr v-on:click="log_group_show(props.item.g_id)">
+      <tr v-on:click="log_teacher_show(props.item.t_id)">
         <td class="text-xs-center">{{ props.item.count }}</td>
-        <td class="text-xs-left">{{ props.item.g_code }}</td>
-        <td class="text-xs-left">{{ props.item.g_name }}</td>
+        <td class="text-xs-left">{{ props.item.t_code }}</td>
+        <td class="text-xs-left">{{ props.item.t_name }}</td>
         <td class="text-xs-left">{{ props.item.d_name }}</td>
         <td class="text-xs-left">{{ props.item.u_id }}</td>
 
@@ -60,8 +60,8 @@
         rows_per_page:[10,20,{"text":"แสดงทั้งหมด","value":-1}],//////////////////////////   teach me pleas!
         headers: [
           { text: 'การทำงาน', value: 'การทำงาน',align: 'center',sortable: false,  },
-          { text: 'รหัสกลุ่มการเรียน', value: 'รหัสกลุ่มการเรียน',align: 'left',sortable: false,  },
-          { text: 'ชื่อกลุ่มการเรียน', value: 'ชื่อกลุ่มการเรียน',align: 'left',sortable: false,  },
+          { text: 'รหัสครู/บุุคลากร', value: 'รหัสครู/บุุคลากร',align: 'left',sortable: false,  },
+          { text: 'ชื่อครู/บุุคลากร', value: 'ชื่อครู/บุุคลากร',align: 'left',sortable: false,  },
           { text: 'แผนกวิชา', value: 'แผนกวิชา',align: 'left',sortable: false,  },
           { text: 'ผู้ดำเนินการ', value: 'ผู้ดำเนินการ',align: 'left',sortable: false,  },
           
@@ -71,7 +71,7 @@
     },
     async created(){
       this.state=true
-      let res=await this.$http.get('/log_list/log_group')
+      let res=await this.$http.get('/log_list/log_teacher')
       //  console.log(res.data)
       this.datas=res.data.datas
       this.state=false
@@ -84,8 +84,8 @@
       
     },
     methods:{
-      log_group_show(g_id){
-        this.$router.push({path: '../log/show_log_group?g_id='+g_id})
+      log_teacher_show(t_id){
+        this.$router.push({path: '../teacher_log/show_log_teacher?t_id='+t_id})
       },
      
     }

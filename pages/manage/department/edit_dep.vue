@@ -105,7 +105,7 @@
               d_id:this.$route.query.d_id,
               d_code:this.d_code,
               d_name:this.d_name,
-              u_id:sessionStorage.getItem("id")
+              u_id:sessionStorage.getItem("username")
             })
             if(res.data.ok==true){
               this.isEditing=!this.isEditing
@@ -125,7 +125,7 @@
               d_code:this.d_code,
               d_name:this.d_name,
               d_id:d_id,
-              u_id:sessionStorage.getItem("id")
+              u_id:sessionStorage.getItem("username")
             })
             console.log(res.data)
               if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt

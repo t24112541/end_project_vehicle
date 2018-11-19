@@ -149,6 +149,7 @@
 
 <script>
   export default {
+    
     data: () => ({
       txt_search:"",
       page_search:"",
@@ -189,11 +190,11 @@
           text: 'บันทึกการทำงาน',
           model: false,
           children: [
-            { icon:'fas fa-user-graduate' ,text: 'นักเรียน / นักศึกษา' ,link: '../../manage/log/'},
-            { icon:'fas fa-chalkboard-teacher' ,text: 'ครู / บุคลากร' ,link: '../../manage/teacher/add_teacher'},
-            { icon:'fas fa-place-of-worship' ,text: 'แผนกวิชา' ,link: '../../manage/log/log_department'},
-            { icon:'fas fa-users', text: 'กลุ่มการเรียน' ,link: '../../manage/log/group_log'},
-            { icon:'fas fa-motorcycle' ,text: 'ยานพาหนะ' ,link: '../../manage/machines/data_add_machine'},
+            { icon:'fas fa-user-graduate' ,text: 'นักเรียน / นักศึกษา' ,link: ''},
+            { icon:'fas fa-chalkboard-teacher' ,text: 'ครู / บุคลากร' ,link: '/manage/teacher_log/teacher_log'},
+            { icon:'fas fa-place-of-worship' ,text: 'แผนกวิชา' ,link: '/manage/department_log/log_department'},
+            { icon:'fas fa-users', text: 'กลุ่มการเรียน' ,link: '/manage/group_log/group_log'},
+            { icon:'fas fa-motorcycle' ,text: 'ยานพาหนะ' ,link: ''},
           ]
         },
         { divider: true },

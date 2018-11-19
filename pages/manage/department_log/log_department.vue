@@ -81,7 +81,7 @@ var moment =require("moment");
     },
     methods:{
       log_department_show(d_id){
-        this.$router.push({path: '../log/show_log_depart?d_id='+d_id})
+        this.$router.push({path: '../department_log/show_log_depart?d_id='+d_id})
       },
      
     }

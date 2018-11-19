@@ -127,7 +127,7 @@
               g_name:this.g_name,
               d_code:this.d_code,
               g_id:this.$route.query.g_id,
-              u_id:sessionStorage.getItem("id")
+              u_id:sessionStorage.getItem("username")
             })
             if(res.data.ok==true){this.$router.push({name:"manage-group"})}
             else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
@@ -148,7 +148,7 @@
               g_name:this.g_name,
               d_code:this.d_code,
               g_id:g_id,
-              u_id:sessionStorage.getItem("id")
+              u_id:sessionStorage.getItem("username")
             })
               if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt,this.sh_group(),
                 this.$router.push({name:"manage-group"})
@@ -156,7 +156,6 @@
              else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
           },
           group(){
-            // this.$router.replace("../group")
             this.$router.push({name:"manage-group"})
           },
           student(g_code){
