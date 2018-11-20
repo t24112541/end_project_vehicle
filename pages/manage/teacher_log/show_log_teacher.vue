@@ -91,7 +91,7 @@
     },
     async created(){
       this.state=true
-      let res=await this.$http.post('/log_list/log_teacher_show/',{g_id:this.$route.query.g_id})
+      let res=await this.$http.post('/log_list/log_teacher_show/',{t_id:this.$route.query.t_id})
       //  console.log(res.data)
       this.datas=res.data.datas
       this.g_name=this.datas[0].g_name
@@ -107,8 +107,8 @@
       
     },
     methods:{
-      log_teacher_show(g_id){
-        this.$router.push({path: '../manage/teacher/show_log_teacher?g_id='+g_id})
+      log_teacher_show(t_id){
+        this.$router.push({path: '../manage/teacher/show_log_teacher?t_id='+t_id})
       },
       async restore(id){
             let res=await this.$http.post("/teacher/restore",{

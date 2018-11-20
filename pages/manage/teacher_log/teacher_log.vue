@@ -31,7 +31,7 @@
         <td class="text-xs-left">{{ props.item.t_code }}</td>
         <td class="text-xs-left">{{ props.item.t_name }}</td>
         <td class="text-xs-left">{{ props.item.d_name }}</td>
-        <td class="text-xs-left">{{ props.item.u_id }}</td>
+        <td class="text-xs-left">{{ props.item.u_name }}</td>
 
       </tr>
     </template>
