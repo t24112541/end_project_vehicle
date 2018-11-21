@@ -1,6 +1,6 @@
 
 <template>
-    <v-card>
+    <v-card @keypress.enter="teacher_add()">
       <v-alert
         v-model="danger"
         dismissible
@@ -120,7 +120,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn flat color="red lighten-2" @click="teacher()">ย้อนกลับ</v-btn>
-          <v-btn flat color="primary" @click="teaher_add()">บันทึก</v-btn>
+          <v-btn flat color="primary" @click="teacher_add()">บันทึก</v-btn>
         </v-card-actions>
     </v-card>
 </template>
@@ -185,15 +185,18 @@
               this.loading = false
             }, 500)
           },
-          async teaher_add(){
+          async teacher_add(){
             if(this.t_code!='' && this.t_name!='' && this.t_dep!='' && this.t_tel!='' ){
               let res=await this.$http.post("teacher/teacher_add",{
                 t_code:this.t_code,
                 t_name:this.t_name,
                 t_dep:this.t_dep,
                 t_tel:this.t_tel,
+                u_id:sessionStorage.getItem("username")
               })
-              if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
+              if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt
+                this.$router.push({name:"manage-teacher"})
+              }
               else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
             }else{this.danger=true,this.alt_txt="กรุณากรอกข้อมูลให้ครบ",this.type_api="error"}
           },

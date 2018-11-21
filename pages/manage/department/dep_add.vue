@@ -73,7 +73,7 @@
               let res=await this.$http.post("department/dep_add",{
                 d_code:this.d_code,
                 d_name:this.d_name,
-                u_id:sessionStorage.getItem("id")
+                u_id:sessionStorage.getItem("username")
               })
               if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt
                 this.$router.push({name: 'manage-department'})

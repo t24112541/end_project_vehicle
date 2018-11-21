@@ -1,6 +1,6 @@
 
 <template>
-    <v-card>
+    <v-card @keypress.enter="teacher_update(t_id)">
        <v-alert
         v-model="danger"
         dismissible
@@ -33,7 +33,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="red lighten-2" flat @click.native="conf_del = false">ไม่ใช่</v-btn>
-                <v-btn color="primary" flat @click="teacher_del()">ใช่</v-btn>
+                <v-btn color="primary" flat @click="teacher_del(t_id)">ใช่</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -183,8 +183,17 @@
         },
         methods:{
             conf_del(){this.conf_del=true},
-            async teacher_del(){
-              let res=await this.$http.get('/teacher/teacher_del/'+this.$route.query.t_id)
+            async teacher_del(t_id){
+              let res=await this.$http.post('/teacher/teacher_del/',{
+                t_code:this.t_code,
+        				t_name:this.t_name,
+        				t_dep:this.t_dep,
+        				t_tel:this.t_tel,
+        				t_username:this.t_username,
+        				t_password:this.t_password,
+                t_id:t_id,
+                u_id:sessionStorage.getItem("username")
+              })
               if(res.data.ok==true){this.$router.push({name:"manage-teacher"})}
               else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
             },
@@ -210,9 +219,12 @@
         				t_username:this.t_username,
         				t_password:this.t_password,
                 t_id:t_id,
+                u_id:sessionStorage.getItem("username")
               })
-              console.log(res.data)
-                if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
+              // console.log(res.data)
+                if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt
+                  this.$router.push({name:"manage-teacher"})
+                }
             	 else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
             },
             teacher(){
