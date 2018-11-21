@@ -9,7 +9,7 @@
       </v-alert>
     <v-card >
     <h2 align="center" class="padding-top-mn">บันทึกการทำงาน</h2>
-    <div class="cv_header ">ข้อมูลครู / บุคลากร {{t_name}} ประจำแผนกวิชา {{d_name}}</div>
+    <div class="cv_header ">ชื่อ {{t_name}} ประจำแผนกวิชา {{d_name}}</div>
 
   <v-data-table
       :headers="headers"
@@ -34,13 +34,13 @@
       </v-tooltip>
     </template>
     <template slot="items" slot-scope="props">
-
+        
         <td class="text-xs-left">{{ props.item.t_log_work }}</td>
         <td class="text-xs-left">{{ props.item.t_log_date }}</td>
         <td class="text-xs-left">{{ props.item.t_code }}</td>
         <td class="text-xs-left">{{ props.item.t_name }}</td>
         <td class="text-xs-left">{{ props.item.d_name }}</td>
-        <td class="text-xs-left">{{ props.item.m_name }}</td>
+        <td class="text-xs-left">{{ props.item.u_name }}</td>
         <td class="text-xs-left">
           <v-flex>
               <v-btn flat icon color="green" v-on:click="restore(props.item.run_id)">
@@ -69,6 +69,7 @@
     data () {
       return {
         danger:false,
+        t_name:"",
         g_name:"",
         d_name:"",
         state:false,
@@ -92,10 +93,12 @@
     async created(){
       this.state=true
       let res=await this.$http.post('/log_list/log_teacher_show/',{t_id:this.$route.query.t_id})
-      //  console.log(res.data)
+      // console.log("ola")
+      //  console.log(res.data.datas)
       this.datas=res.data.datas
       this.g_name=this.datas[0].g_name
       this.d_name=this.datas[0].d_name
+      this.t_name=this.datas[0].t_name
       // console.log(this.datas[0].g_name)
       this.state=false
     },
@@ -115,7 +118,7 @@
               id:id,
               data:"pk_teacher_log",
               target:"pk_teacher",
-              u_id:sessionStorage.getItem("id")
+              u_id:sessionStorage.getItem("username")
             })
               if(res.data.ok==true){//this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt
                 this.$router.push({name: 'manage-teacher'})
