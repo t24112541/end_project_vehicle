@@ -1,6 +1,6 @@
 
 <template>
-    <v-card>
+    <v-card @keypress.enter="std_add()">
       <v-alert
         v-model="danger"
         dismissible
@@ -198,6 +198,7 @@
               std_birthday:this.dateFormatted,
               std_blood:this.std_blood,
               g_code:this.g_code,
+              u_id:sessionStorage.getItem("username")
             })
             if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
             else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}

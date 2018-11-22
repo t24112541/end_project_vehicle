@@ -1,6 +1,6 @@
 
 <template>
-    <v-card>
+    <v-card @keypress.enter="std_update(std_id)">
       <v-alert
         v-model="danger"
         dismissible
@@ -34,7 +34,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="red lighten-2" flat @click.native="conf_del = false">ไม่ใช่</v-btn>
-                <v-btn color="primary" flat @click="std_del()">ใช่</v-btn>
+                <v-btn color="primary" flat @click="std_del(std_id)">ใช่</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -187,8 +187,20 @@
         },
         methods:{
             conf_del(){this.conf_del=true},
-            async std_del(){console.log("std_del")
-              let res=await this.$http.get('/student/std_del/'+this.$route.query.std_id)
+            async std_del(std_id){
+              let res=await this.$http.psot('/student/std_del/',{
+                std_code:this.std_code,
+        				std_pin_id:this.std_pin_id,
+        				std_prename:this.std_prename,
+        				std_name:this.std_name,
+        				std_lname:this.std_lname,
+        				std_birthday:this.std_birthday,
+        				std_gender:this.std_gender,
+        				std_blood:this.std_blood,
+        				g_code:this.g_code,
+                std_id:std_id,
+                u_id:sessionStorage.getItem("username")
+              })
               if(res.data.ok==true){this.$router.push({name:"manage-student"})}
               else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
             },
@@ -220,7 +232,7 @@
         				std_blood:this.std_blood,
         				g_code:this.g_code,
                 std_id:std_id,
-
+                u_id:sessionStorage.getItem("username")
               })
               console.log(res.data)
                 if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
