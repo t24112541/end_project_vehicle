@@ -190,7 +190,7 @@
           text: 'บันทึกการทำงาน',
           model: false,
           children: [
-            { icon:'fas fa-user-graduate' ,text: 'นักเรียน / นักศึกษา' ,link: ''},
+            { icon:'fas fa-user-graduate' ,text: 'นักเรียน / นักศึกษา' ,link: '/manage/student_log/student_log'},
             { icon:'fas fa-chalkboard-teacher' ,text: 'ครู / บุคลากร' ,link: '/manage/teacher_log/teacher_log'},
             { icon:'fas fa-place-of-worship' ,text: 'แผนกวิชา' ,link: '/manage/department_log/log_department'},
             { icon:'fas fa-users', text: 'กลุ่มการเรียน' ,link: '/manage/group_log/group_log'},

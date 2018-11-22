@@ -126,7 +126,17 @@
                 v-model="std_birthday"
                 ></v-text-field>-->
             </v-flex>
-           
+            <v-flex xs6>
+              <v-select
+                :items="bld"
+                v-model="std_blood"
+                menu-props="auto"
+                hide-details
+                label="กรุ๊ปเลือด"
+                prepend-icon="fas fa-hospital"
+              
+              ></v-select>
+            </v-flex>
           </v-layout>
         </v-container>
         <v-card-actions>
@@ -167,8 +177,8 @@
             },
             modal: false,
             date: null,
-          dateFormatted: null,
-          menu1: false,
+            dateFormatted: null,
+            menu1: false,
 
           }
         },
@@ -179,9 +189,9 @@
           std_prename(newValue){
             if(newValue=="นาย"){this.std_gender="ช"}else{this.std_gender="ญ"}
           },
-           std_birthday (val) {
-      this.dateFormatted = this.formatDate(this.std_birthday)
-    },
+          std_birthday (val) {
+            this.dateFormatted = this.formatDate(this.std_birthday)
+          },
           modal (val) {
             val && this.$nextTick(() => (this.$refs.picker.activePicker = 'YEAR'))
           },
@@ -200,7 +210,9 @@
               g_code:this.g_code,
               u_id:sessionStorage.getItem("username")
             })
-            if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
+            if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt
+              this.$router.push({name:"manage-student"})
+            }
             else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
           },
           async sh_group(){
@@ -209,27 +221,27 @@
             // console.log(res.data.datas.g_id)
             // console.log("item_group="+this.item_group.g_code)
           },
-    student(){
-            this.$router.push({name:"manage-student"})
+          student(){
+                  this.$router.push({name:"manage-student"})
+                },
+          formatDate (std_birthday) {
+            if (!std_birthday) return null
+
+            const [year, month, day] = std_birthday.split('-')
+            return `${day}/${month}/${year}`
           },
-    formatDate (std_birthday) {
-      if (!std_birthday) return null
+          parseDate (std_birthday) {
+            if (!std_birthday) return null
 
-      const [year, month, day] = std_birthday.split('-')
-      return `${day}/${month}/${year}`
-    },
-    parseDate (std_birthday) {
-      if (!std_birthday) return null
-
-      const [month, day, year] = std_birthday.split('/')
-      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-    }
+            const [month, day, year] = std_birthday.split('/')
+            return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+          }
         },
-    computed: {
-    computedDateFormatted () {
-      return this.formatDate(this.std_birthday)
-    }
-  },
+        computed: {
+          computedDateFormatted () {
+            return this.formatDate(this.std_birthday)
+          }
+        },
 
     }
     
