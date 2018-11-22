@@ -115,19 +115,7 @@
                 v-model="std_birthday"
                 ></v-text-field>
             </v-flex>
-            
-            <v-flex xs6>
-              <v-select
-                :disabled="!isEditing"
-                :items="gd"
-                v-model="std_gender"
-                menu-props="auto"
-                hide-details
-                label="เพศ"
-                prepend-icon="fas fa-transstd_gender"
-               
-              ></v-select>
-            </v-flex>
+
             <v-flex xs6>
               <v-select
                 :disabled="!isEditing"
@@ -179,16 +167,24 @@
             bld:['A', 'B', 'O','AB'],
             gd:[{text:'ชาย',value:"ช"},{text:'หญิง',value:"ญ"}],
             item_std_prename:['นาย','นางสาว','นาง',],
+            modal: false,
+            date: null,
 
+            menu1: false,
           }
         },
         async created(){
           this.sh_std()
         },
+        watch:{
+          std_prename(newValue){
+            if(newValue=="นาย"){this.std_gender="ช"}else{this.std_gender="ญ"}
+          },
+        },
         methods:{
             conf_del(){this.conf_del=true},
             async std_del(std_id){
-              let res=await this.$http.psot('/student/std_del/',{
+              let res=await this.$http.post('/student/std_del/',{
                 std_code:this.std_code,
         				std_pin_id:this.std_pin_id,
         				std_prename:this.std_prename,
@@ -201,7 +197,10 @@
                 std_id:std_id,
                 u_id:sessionStorage.getItem("username")
               })
-              if(res.data.ok==true){this.$router.push({name:"manage-student"})}
+              if(res.data.ok==true){
+                this.conf_del=false
+                this.$router.push({name:"manage-student"})
+              }
               else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
             },
             async sh_std(){
@@ -217,6 +216,7 @@
               this.std_gender=res.data.datas.std_gender
               this.std_blood=res.data.datas.std_blood
               this.g_code=res.data.datas.g_code
+              // console.log(res.data)
             },
             async std_update(std_id){
               //console.log("std_id"+std_id)
@@ -235,12 +235,16 @@
                 u_id:sessionStorage.getItem("username")
               })
               console.log(res.data)
-                if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
+                if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt
+                  this.$router.push({name:"manage-student"})
+                }
             	 else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
             },
             student(){
               this.$router.push({name:"manage-student"})
-            }
-        }
+            },
+          
+        },
+       
     }
 </script>
