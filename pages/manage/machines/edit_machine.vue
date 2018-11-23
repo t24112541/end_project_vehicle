@@ -41,16 +41,45 @@
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
+             <v-flex xs12 >
+               <v-layout>
+                 <v-flex
+                  xs4
+                ></v-flex>
+                <v-flex
+                  xs4
+                  d-flex
+                >
+                  <v-card flat tile class="d-flex">
+                    <v-img
+                      :src="img_img"
+                      :lazy-src="img_img"
+                      aspect-ratio="1"
+                      class="grey lighten-2"
+                    >
+                      <v-layout
+                        slot="placeholder"
+                        fill-height
+                        align-center
+                        justify-center
+                        ma-0
+                      >
+                        <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                      </v-layout>
+                    </v-img>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+            </v-flex>
             <v-flex xs12 >
               <v-layout align-center>
                 <v-text-field
-                  :disabled="!isEditing"
-                  :rules="[rules.required]"
-                  maxlength="10"
+                  :disabled="true"
+                  maxlength="50"
                   counter
                   prepend-icon="fas fa-user"
-                  placeholder="รหัสเจ้าของพาหนะ"
-                  v-model="std_id"
+                  label="ชื่อเจ้าของพาหนะ"
+                  v-model="std_name"
                 ></v-text-field>
               </v-layout>
             </v-flex>
@@ -95,35 +124,7 @@
                 ></v-text-field>
               </v-layout>
             </v-flex>
-            <v-flex xs12 >
-               <v-layout row wrap>
-                <v-flex
-                  v-for="n in 9"
-                  :key="n"
-                  xs4
-                  d-flex
-                >
-                  <v-card flat tile class="d-flex">
-                    <v-img
-                      :src="img_img"
-                      :lazy-src="img_img"
-                      aspect-ratio="1"
-                      class="grey lighten-2"
-                    >
-                      <v-layout
-                        slot="placeholder"
-                        fill-height
-                        align-center
-                        justify-center
-                        ma-0
-                      >
-                        <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-                      </v-layout>
-                    </v-img>
-                  </v-card>
-                </v-flex>
-              </v-layout>
-            </v-flex>
+           
           </v-layout>
         </v-container>
         <v-card-actions>
@@ -174,7 +175,9 @@
             this.mc_code=res.data.datas[0].mc_code
             this.mc_brand=res.data.datas[0].mc_brand
             this.mc_series=res.data.datas[0].mc_series
-            this.std_id=res.data.datas[0].std_id
+            this.std_prename=res.data.datas[0].std_prename
+            this.std_name=res.data.datas[0].std_name
+            this.std_lastname=res.data.datas[0].std_lastname
             this.img_img=res.data.datas[0].img_img
           },
           async machine_update(mc_id){

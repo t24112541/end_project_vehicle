@@ -71,12 +71,14 @@
                 ></v-text-field>
               </v-layout>
             </v-flex>
-           <v-flex xs12 v-if="this.previewImage===null">
+            <!-- v-if="this.previewImage===null" -->
+           <v-flex xs12 >
               <v-layout align-center>
-                <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input">
+                <input type="file" accept="image/*" multiple  @change="uploadImage($event)" id="file-input">
               </v-layout>
            </v-flex>
-           <v-flex xs12 v-else-if="this.previewImage!=null">
+           <!-- v-else-if="this.previewImage!=null" -->
+           <v-flex xs12 >
               <v-layout align-center>
                 <img :src="this.previewImage">
               </v-layout>
@@ -99,16 +101,14 @@
 <script>
     export default {
         layout: 'manage',
-
         data () {
             return {
-              previewImage:null,
+              previewImage:[],
               mc_code:"",
               mc_brand:"",
               mc_series: '',
               std_id: '',
               img_img:"",
-
               type_api:"",
               danger:false,
               conf_del:false,
@@ -139,15 +139,14 @@
             this.$router.push({name:"manage-machines"})
           },
           uploadImage(e){
-                const image = e.target.files[0];
-                const reader = new FileReader();
-                reader.readAsDataURL(image);
-                reader.onload = e =>{
-                    this.previewImage = e.target.result;
-                    // console.log(this.previewImage);
-                };
+            const image = e.target.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(image);
+            reader.onload = e =>{
+                this.previewImage = e.target.result;
+                // console.log(this.previewImage);
+            };
           },
-
         }
     }
 </script>
