@@ -61,7 +61,7 @@
             <v-flex xs12 >
               <v-layout align-center>
                 <v-text-field
-                  
+                  :rules="[rules.required]"
                   maxlength="100"
                   counter
                   prepend-icon="fas fa-tachometer-alt"
@@ -71,9 +71,14 @@
                 ></v-text-field>
               </v-layout>
             </v-flex>
-           <v-flex xs12 >
+           <v-flex xs12 v-if="this.previewImage===null">
               <v-layout align-center>
                 <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input">
+              </v-layout>
+           </v-flex>
+           <v-flex xs12 v-else-if="this.previewImage!=null">
+              <v-layout align-center>
+                <img :src="this.previewImage">
               </v-layout>
            </v-flex>
           </v-layout>
@@ -98,29 +103,33 @@
         data () {
             return {
               previewImage:null,
-            mc_code:"",
-            mc_brand:"",
-            mc_series: '',
-            std_id: '',
+              mc_code:"",
+              mc_brand:"",
+              mc_series: '',
+              std_id: '',
+              img_img:"",
 
-            type_api:"",
-            danger:false,
-            conf_del:false,
-            isEditing:null,
-            rules: {
-                  required: value => !!value || 'ห้ามว่าง.',
-                  // counter: value => value.length <= 10 || 'เต็ม 10 ตัวอักษร',
-            },
+              type_api:"",
+              danger:false,
+              conf_del:false,
+              isEditing:null,
+              rules: {
+                    required: value => !!value || 'ห้ามว่าง.',
+                    counter: value => value.length <= 10 || 'เต็ม 10 ตัวอักษร',
+              },
           }
         },
         methods:{
            async machine_add(){
-            if(this.d_code!='' && this.d_name!=''){
+            if(this.mc_code!='' && this.mc_brand!=''&& this.mc_series!=''&& this.std_id!='' ){
               let res=await this.$http.post("machine/machine_add",{
                 mc_code:this.mc_code,
                 mc_brand:this.mc_brand,
                 mc_series:this.mc_series,
                 std_id:this.std_id,
+                img_img:this.previewImage,
+                u_id:sessionStorage.getItem("username"),
+                u_table:"pk_machine"
               })
               if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
               else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
@@ -135,7 +144,7 @@
                 reader.readAsDataURL(image);
                 reader.onload = e =>{
                     this.previewImage = e.target.result;
-                    console.log(this.previewImage);
+                    // console.log(this.previewImage);
                 };
           },
 
