@@ -50,7 +50,6 @@
                   counter
                   prepend-icon="fas fa-user"
                   placeholder="รหัสเจ้าของพาหนะ"
-                  name="std_id"
                   v-model="std_id"
                 ></v-text-field>
               </v-layout>
@@ -96,7 +95,35 @@
                 ></v-text-field>
               </v-layout>
             </v-flex>
-           
+            <v-flex xs12 >
+               <v-layout row wrap>
+                <v-flex
+                  v-for="n in 9"
+                  :key="n"
+                  xs4
+                  d-flex
+                >
+                  <v-card flat tile class="d-flex">
+                    <v-img
+                      :src="img_img"
+                      :lazy-src="img_img"
+                      aspect-ratio="1"
+                      class="grey lighten-2"
+                    >
+                      <v-layout
+                        slot="placeholder"
+                        fill-height
+                        align-center
+                        justify-center
+                        ma-0
+                      >
+                        <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                      </v-layout>
+                    </v-img>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+            </v-flex>
           </v-layout>
         </v-container>
         <v-card-actions>
@@ -113,20 +140,22 @@
 
         data () {
             return {
-            mc_code:"",
-            mc_brand:"",
-            mc_series: '',
-            std_id: '',
+              mc_id:"",
+              mc_code:"",
+              mc_brand:"",
+              mc_series: '',
+              std_id: '',
+              img_img:"",
 
-            type_api:"",
-            danger:false,
-            conf_del:false,
-            isEditing:null,
-            rules: {
-                  required: value => !!value || 'ห้ามว่าง.',
-                  // counter: value => value.length <= 10 || 'เต็ม 10 ตัวอักษร',
-            },
-          }
+              type_api:"",
+              danger:false,
+              conf_del:false,
+              isEditing:null,
+              rules: {
+                    required: value => !!value || 'ห้ามว่าง.',
+                    // counter: value => value.length <= 10 || 'เต็ม 10 ตัวอักษร',
+              },
+            }
         },
         async created(){
           this.sh_machine()
@@ -140,12 +169,13 @@
           },
           async sh_machine(){
             let res=await this.$http.get('/machine/sh_machine/'+this.$route.query.mc_id)
-            // console.log("api return=".res.data.datas)
+            // console.log(res.data.datas)
             this.mc_id=this.$route.query.mc_id
-            this.mc_code=res.data.datas.mc_code
-            this.mc_brand=res.data.datas.mc_brand
-            this.mc_series=res.data.datas.mc_series
-            this.std_id=res.data.datas.std_id
+            this.mc_code=res.data.datas[0].mc_code
+            this.mc_brand=res.data.datas[0].mc_brand
+            this.mc_series=res.data.datas[0].mc_series
+            this.std_id=res.data.datas[0].std_id
+            this.img_img=res.data.datas[0].img_img
           },
           async machine_update(mc_id){
             //console.log("mc_id"+mc_id)
