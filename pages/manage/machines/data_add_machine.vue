@@ -71,18 +71,79 @@
                 ></v-text-field>
               </v-layout>
             </v-flex>
-            <!-- v-if="this.previewImage===null" -->
-           <v-flex xs12 >
-              <v-layout align-center>
-                <input type="file" accept="image/*" multiple  @change="uploadImage($event)" id="file-input">
-              </v-layout>
-           </v-flex>
-           <!-- v-else-if="this.previewImage!=null" -->
-           <v-flex xs12 >
-              <v-layout align-center>
-                <img :src="this.previewImage">
-              </v-layout>
-           </v-flex>
+
+            <!-- image zone -->
+
+              <v-flex xs4 
+                @click="$refs.img_font.click()" 
+                style="cursor: pointer;"
+              >
+                <input 
+                  type="file" 
+                  style="display:none;" 
+                  accept="image/*" 
+                  multiple  
+                  @change="upload_img_font($event)" 
+                  ref="img_font"
+                >
+                <v-card class="grey lighten-4 paddign"> 
+                  <v-img :src="this.img_font" height="200"></v-img>
+                  <v-card-actions>
+                    <span class="subheading display-1 "><i class="fas fa-image fa-2x"></i></span>
+                    <v-spacer></v-spacer>
+                    <span class="subheading display-1 ">รูปด้านหน้า</span>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+              <!-- end 1 -->
+
+              <v-flex xs4 class="text-xs-center" 
+                @click="$refs.img_side.click()" 
+                style="cursor: pointer;"
+              >
+                <input 
+                  type="file" 
+                  style="display:none;" 
+                  accept="image/*" 
+                  multiple  
+                  @change="upload_img_side($event)" 
+                  ref="img_side"
+                >
+                <v-card class="grey lighten-4 paddign" > 
+                  <v-img :src="this.img_side" height="200"></v-img>
+                  <v-card-actions >
+                    <span class="subheading display-1 "><i class="fas fa-image fa-2x"></i></span>
+                    <v-spacer></v-spacer>
+                    <span class="subheading display-1 ">รูปด้านข้าง</span>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+              <!-- end 2 -->
+              <v-flex xs4 class="text-xs-center" 
+                @click="$refs.img_rear.click()" 
+                style="cursor: pointer;"
+              >
+                <input 
+                  type="file" 
+                  style="display:none;" 
+                  accept="image/*" 
+                  multiple  
+                  @change="upload_img_rear($event)" 
+                  ref="img_rear"
+                >
+                <v-card class="grey lighten-4 paddign" > 
+                  <v-img :src="this.img_rear" height="200"></v-img>
+                  <v-card-actions >
+                    <span class="subheading display-1 "><i class="fas fa-image fa-2x"></i></span>
+                    <v-spacer></v-spacer>
+                    <span class="subheading display-1 ">รูปด้านหลัง</span>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+
+  
+           
+
           </v-layout>
         </v-container>
         <v-card-actions>
@@ -104,6 +165,9 @@
         data () {
             return {
               previewImage:[],
+              img_font:[],
+              img_side:[],
+              img_rear:[],
               mc_code:"",
               mc_brand:"",
               mc_series: '',
@@ -127,7 +191,13 @@
                 mc_brand:this.mc_brand,
                 mc_series:this.mc_series,
                 std_id:this.std_id,
-                img_img:this.previewImage,
+
+                // img_img:this.img_font,img_side,img_rear,
+                img_font:this.img_font,
+                img_side:this.img_side,
+                img_rear:this.img_rear,
+
+                
                 u_id:sessionStorage.getItem("username"),
                 u_table:"pk_machine"
               })
@@ -138,13 +208,32 @@
           machine(){
             this.$router.push({name:"manage-machines"})
           },
-          uploadImage(e){
+          upload_img_font(e){
             const image = e.target.files[0];
             const reader = new FileReader();
             reader.readAsDataURL(image);
-            reader.onload = e =>{
-                this.previewImage = e.target.result;
-                // console.log(this.previewImage);
+            reader.onload = e =>{              
+              this.img_font=e.target.result;
+              console.log(this.img_font);
+            };
+          },
+          upload_img_side(e){
+            const image = e.target.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(image);
+            reader.onload = e =>{              
+              this.img_side=e.target.result;
+              // console.log("this.img_side");
+              console.log(this.img_side);
+            };
+          },
+          upload_img_rear(e){
+            const image = e.target.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(image);
+            reader.onload = e =>{              
+              this.img_rear=e.target.result;
+              console.log(this.img_rear);
             };
           },
         }

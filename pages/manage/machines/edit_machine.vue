@@ -41,36 +41,79 @@
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
-             <v-flex xs12 >
-               <v-layout>
-                 <v-flex
-                  xs4
-                ></v-flex>
-                <v-flex
-                  xs4
-                  d-flex
+
+                        <!-- image zone -->
+
+              <v-flex xs4 
+                @click="$refs.img_font.click()" 
+                style="cursor: pointer;"
+              >
+                <input 
+                  :disabled="!isEditing"
+                  type="file" 
+                  style="display:none;" 
+                  accept="image/*" 
+                  multiple  
+                  @change="upload_img_font($event)" 
+                  ref="img_font"
                 >
-                  <v-card flat tile class="d-flex">
-                    <v-img
-                      :src="img_img"
-                      :lazy-src="img_img"
-                      aspect-ratio="1"
-                      class="grey lighten-2"
-                    >
-                      <v-layout
-                        slot="placeholder"
-                        fill-height
-                        align-center
-                        justify-center
-                        ma-0
-                      >
-                        <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-                      </v-layout>
-                    </v-img>
-                  </v-card>
-                </v-flex>
-              </v-layout>
-            </v-flex>
+                <v-card class="grey lighten-4 paddign"> 
+                  <v-img :src="this.img_font" height="200"></v-img>
+                  <v-card-actions>
+                    <span class="subheading display-1 "><i class="fas fa-image fa-2x"></i></span>
+                    <v-spacer></v-spacer>
+                    <span class="subheading display-1 ">รูปด้านหน้า</span>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+              <!-- end 1 -->
+
+              <v-flex xs4 class="text-xs-center" 
+                @click="$refs.img_side.click()" 
+                style="cursor: pointer;"
+              >
+                <input 
+                  :disabled="!isEditing"
+                  type="file" 
+                  style="display:none;" 
+                  accept="image/*" 
+                  multiple  
+                  @change="upload_img_side($event)" 
+                  ref="img_side"
+                >
+                <v-card class="grey lighten-4 paddign" > 
+                  <v-img :src="this.img_side" height="200"></v-img>
+                  <v-card-actions >
+                    <span class="subheading display-1 "><i class="fas fa-image fa-2x"></i></span>
+                    <v-spacer></v-spacer>
+                    <span class="subheading display-1 ">รูปด้านข้าง</span>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+              <!-- end 2 -->
+              <v-flex xs4 class="text-xs-center" 
+                @click="$refs.img_rear.click()" 
+                style="cursor: pointer;"
+              >
+                <input 
+                  :disabled="!isEditing"
+                  type="file" 
+                  style="display:none;" 
+                  accept="image/*" 
+                  multiple  
+                  @change="upload_img_rear($event)" 
+                  ref="img_rear"
+                >
+                <v-card class="grey lighten-4 paddign" > 
+                  <v-img :src="this.img_rear" height="200"></v-img>
+                  <v-card-actions >
+                    <span class="subheading display-1 "><i class="fas fa-image fa-2x"></i></span>
+                    <v-spacer></v-spacer>
+                    <span class="subheading display-1 ">รูปด้านหลัง</span>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+
             <v-flex xs12 >
               <v-layout align-center>
                 <v-text-field
@@ -146,7 +189,14 @@
               mc_brand:"",
               mc_series: '',
               std_id: '',
-              img_img:"",
+
+              img_font:"",
+              img_side:"",
+              img_rear:"",
+
+              img_font_id:"",
+              img_side_id:"",
+              img_rear_id:"",
 
               type_api:"",
               danger:false,
@@ -164,7 +214,11 @@
         methods:{
           conf_del(){this.conf_del=true},
           async machines_del(){
-            let res=await this.$http.get('/machine/machine_del/'+this.$route.query.mc_id)
+            let res=await this.$http.post('/machine/machine_del/',{
+
+              mc_id:this.$route.query.mc_id,
+              u_id:sessionStorage.getItem("username")
+            })
             if(res.data.ok==true){this.$router.push({name:"manage-machines"})}
             else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
           },
@@ -178,7 +232,17 @@
             this.std_prename=res.data.datas[0].std_prename
             this.std_name=res.data.datas[0].std_name
             this.std_lastname=res.data.datas[0].std_lastname
-            this.img_img=res.data.datas[0].img_img
+
+            this.img_font=res.data.datas[0].img_img
+            this.img_font_id=res.data.datas[0].img_id
+
+            this.img_side=res.data.datas[1].img_img
+            this.img_side_id=res.data.datas[1].img_id
+
+            this.img_rear=res.data.datas[2].img_img
+            this.img_rear_id=res.data.datas[2].img_id
+
+            // console.log(res.data.datas)
           },
           async machine_update(mc_id){
             //console.log("mc_id"+mc_id)
@@ -188,6 +252,14 @@
               mc_series:this.mc_series,
               std_id:this.std_id,
               mc_id:mc_id,
+
+              img_font:this.img_font,
+              img_side:this.img_side,
+              img_rear:this.img_rear,
+
+              img_font_id:this.img_font_id,
+              img_side_id:this.img_side_id,
+              img_rear_id:this.img_rear_id,
             })
             console.log(res.data)
               if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt,this.sh_machine()}
@@ -196,7 +268,34 @@
           machine(){
             this.$router.push({name:"manage-machines"})
           },
-
+          upload_img_font(e){
+            const image = e.target.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(image);
+            reader.onload = e =>{              
+              this.img_font=e.target.result;
+              console.log(this.img_font);
+            };
+          },
+          upload_img_side(e){
+            const image = e.target.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(image);
+            reader.onload = e =>{              
+              this.img_side=e.target.result;
+              // console.log("this.img_side");
+              console.log(this.img_side);
+            };
+          },
+          upload_img_rear(e){
+            const image = e.target.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(image);
+            reader.onload = e =>{              
+              this.img_rear=e.target.result;
+              console.log(this.img_rear);
+            };
+          },
         }
     }
 </script>
