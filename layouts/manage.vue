@@ -181,6 +181,7 @@
         { icon: 'fas fa-place-of-worship', text: 'แผนกวิชา' ,link: '../../manage/department'},
         { icon: 'fas fa-users', text: 'กลุ่มการเรียน' ,link: '../../manage/group'},
         { icon: 'fas fa-motorcycle', text: 'ยานพาหนะ' ,link: '../../manage/machines'},
+        { icon: 'fas fa-wrench', text: 'อุปกรณ์เสริม' ,link: '../../manage/accessories'},
 
         { divider: true },
         { heading: 'การทำงาน' },
@@ -194,7 +195,7 @@
             { icon:'fas fa-chalkboard-teacher' ,text: 'ครู / บุคลากร' ,link: '/manage/teacher_log/teacher_log'},
             { icon:'fas fa-place-of-worship' ,text: 'แผนกวิชา' ,link: '/manage/department_log/log_department'},
             { icon:'fas fa-users', text: 'กลุ่มการเรียน' ,link: '/manage/group_log/group_log'},
-            { icon:'fas fa-motorcycle' ,text: 'ยานพาหนะ' ,link: ''},
+            { icon:'fas fa-motorcycle' ,text: 'ยานพาหนะ' ,link: '/manage/machine_log/machine_log'},
           ]
         },
         { divider: true },

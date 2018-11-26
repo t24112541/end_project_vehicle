@@ -11,7 +11,7 @@
         <v-card-title
           class="grey lighten-4 py-4 title"
         >
-          เพิ่มข้อมูลพาหนะ
+          เพิ่มข้อมูลอุปกรณ์เสริม
           <v-spacer></v-spacer>
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
