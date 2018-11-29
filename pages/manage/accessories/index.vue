@@ -42,10 +42,10 @@
       </v-tooltip>
     </template>
     <template slot="items" slot-scope="props" >
-      <tr v-on:click="list_accessories(props.item.mc_id)">
-        <td class="text-xs-left xs10">{{ props.item.mc_code }}</td>
-        <td class="text-xs-left">{{ props.item.mc_brand }}</td>
-        <td class="text-xs-left">{{ props.item.mc_series }}</td>
+      <tr v-on:click="list_accessories(props.item.ac_id)">
+        <td class="text-xs-left xs10">{{ props.item.ac_name }}</td>
+        <td class="text-xs-left">{{ props.item.ac_description }}</td>
+        <td class="text-xs-left">{{ props.item.ac_u_id }}</td>
       </tr>
     </template>
       <template slot="no-data">
@@ -67,9 +67,9 @@
         search: '',
         rows_per_page:[10,20,{"text":"แสดงทั้งหมด","value":-1}],//////////////////////////   teach me pleas!
         headers: [
-          {text: 'ทะเบียนรถ',align: 'left',sortable: false, value: 'ทะเบียนรถ'},
-          { text: 'แบรนด์รถ', value: 'แบรนด์รถ',align: 'left', sortable: false,},
-          { text: 'รุ่นรถ', value: 'รุ่นรถ',align: 'left',sortable: false,  },
+          { text: 'ชื่อุปกรณ์',align: 'left',sortable: false, value: 'ชื่อุปกรณ์'},
+          { text: 'รายละเอียด', value: 'รายละเอียด',align: 'left', sortable: false,},
+          { text: 'เจ้าของอุปกรณ์', value: 'เจ้าของอุปกรณ์',align: 'left',sortable: false,  },
         ],
         datas:[]
       }
@@ -83,12 +83,13 @@
         let res=await this.$http.get('/accessories/list')
         this.datas=res.data.datas
         this.state=false
+        // console.log(res.data.datas)
       }
       
       
     },
     methods:{
-      list_accessories(mc_id){
+      list_accessories(ac_id){
         this.$router.push({path: '../manage/accessories/edit_accessories?ac_id='+ac_id})
       },
       accessories_add(){

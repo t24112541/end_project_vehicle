@@ -1,6 +1,21 @@
 <template>
   <div><v-card>
     <div class="cv_header padding-top-mn" >ข้อมูลครู / บุคลากร</div>
+    <div class="cv_header xs12">
+      <v-btn
+        color="green lighten-2"
+        dark
+        small
+        absolute
+        top
+        right
+        fab
+        @click="teacher_add()"
+      >
+        <v-icon>add</v-icon>
+      </v-btn>
+    </div>
+    <v-spacer></v-spacer>
   <v-data-table
       :headers="headers"
       :items="teacher"
@@ -77,7 +92,9 @@
       list_teacher(t_id){
         this.$router.push({path: '../manage/teacher/edit_teacher?t_id='+t_id})
       },
-     
+      teacher_add(){
+        this.$router.push({path:"../manage/teacher/add_teacher"})
+      }
     }
   }
 </script>

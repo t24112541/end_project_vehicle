@@ -2,6 +2,21 @@
   <div>
     <v-card>
     <div class="cv_header padding-top-mn" >แผนกวิชา</div>
+    <div class="cv_header xs12">
+      <v-btn
+        color="green lighten-2"
+        dark
+        small
+        absolute
+        top
+        right
+        fab
+        @click="department_add()"
+      >
+        <v-icon>add</v-icon>
+      </v-btn>
+    </div>
+    <v-spacer></v-spacer>
   <v-data-table
       :headers="headers"
       :items="department"
@@ -76,7 +91,9 @@
         this.$router.push({path: '../manage/department/edit_dep?d_id='+d_id})
         // this.$router.replace('../manage/department/department_edit?d_id='+d_id)
       },
-     
+     department_add(){
+        this.$router.push({path:"../manage/department/dep_add"})
+      }
     }
   }
 </script>

@@ -87,11 +87,11 @@
           </v-layout>
         </v-container>
         <v-card-actions>
+          <v-btn flat color="red lighten-2" @click="group()"><i class="fas fa-arrow-circle-left fa-2x"></i></v-btn>
+          <v-spacer></v-spacer>
           <v-btn flat color="green darken-3" @click="student(g_code)"><i class="fas fa-users fa-2x"></i> นักเรียนในกลุ่ม {{nums.count}} คน</v-btn>
           <v-spacer></v-spacer>
-          
-          <v-btn flat color="red lighten-2" @click="group()">ย้อนกลับ</v-btn>
-          <v-btn flat color="primary" :disabled="!isEditing" @click="group_update(g_id)">บันทึก</v-btn>
+          <v-btn flat color="green lighten-2" :disabled="!isEditing" @click="group_update(g_id)"><i class="fas fa-save fa-2x"></i></v-btn>
         </v-card-actions>
     </v-card>
 </template>
