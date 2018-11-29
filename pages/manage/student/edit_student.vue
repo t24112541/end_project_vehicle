@@ -133,9 +133,10 @@
         </v-container>
         <v-card-actions>
           
+          
+          <v-btn flat color="red lighten-2" @click="student()"><i class="fas fa-arrow-circle-left fa-2x"></i></v-btn>
           <v-spacer></v-spacer>
-          <v-btn flat color="red lighten-2" @click="student()">ย้อนกลับ</v-btn>
-          <v-btn flat color="primary" :disabled="!isEditing" @click="std_update(std_id)">บันทึก</v-btn>
+          <v-btn flat color="green lighten-2" :disabled="!isEditing" @click="std_update(std_id)"><i class="fas fa-save fa-2x"></i></v-btn>
         </v-card-actions>
         
     </v-card>

@@ -15,7 +15,7 @@
           แก้ไขข้อมูลพาหนะ
         </v-flex>
         <v-flex xs2 >
-          <v-btn
+          <v-btn 
             color="green lighten-2"
             flat
             @click="isEditing = !isEditing"
@@ -26,7 +26,7 @@
         </v-flex>
         <v-flex xs2 >
           <v-dialog v-model="conf_del" persistent max-width="290">
-            <v-btn slot="activator" flat color="red lighten-2"><i class="fas fa-trash-alt fa-2x"></i></v-btn>
+            <v-btn  slot="activator" flat color="red lighten-2"><i class="fas fa-trash-alt fa-2x"></i></v-btn>
             <v-card>
               <v-card-title class="headline">ยืนยันการลบข้อมูล</v-card-title>
               <v-card-text>ต้องการลบข้อมูล {{mc_code}}<br> ใช่หรือไม่?</v-card-text>
@@ -177,15 +177,16 @@
           
           <v-btn flat color="red lighten-2" @click="machine()"><i class="fas fa-arrow-circle-left fa-2x"></i></v-btn>
           <v-spacer></v-spacer>
-          <v-btn flat color="orange accent-4" @click="missing()">
+
+          <v-btn flat color="orange accent-4" @click="missing(mc_id)" >
             <v-flex xs12>
               <i class="fas fa-exclamation fa-2x"></i>
             </v-flex>
             <v-flex xs12>
               แจ้งพาหนะสูญหาย
             </v-flex>
-            
           </v-btn>
+
           <v-spacer></v-spacer>
           <v-btn flat color="green lighten-2" :disabled="!isEditing" @click="machine_update(mc_id)"><i class="fas fa-save fa-2x"></i></v-btn>
         </v-card-actions>
@@ -198,6 +199,8 @@
 
         data () {
             return {
+              ms:null,
+
               mc_id:"",
               mc_code:"",
               mc_brand:"",
@@ -260,6 +263,7 @@
             this.img_rear=res.data.datas[2].img_img
             this.img_rear_id=res.data.datas[2].img_id
 
+            if(!this.$route.query.ms){this.ms=!this.ms}
             // console.log(res.data.datas)
           },
           async machine_update(mc_id){
@@ -288,8 +292,16 @@
           machine(){
             this.$router.push({name:"manage-machines"})
           },
-          missing(){
-
+          async missing(mc_id){
+            let res=await this.$http.post("/missing/missing",{
+              u_id:mc_id,
+              ms_table:"pk_machine",
+              ms_u_id:sessionStorage.getItem("username"),
+              ms_u_table:sessionStorage.getItem("status"),
+              ms_status:"ขั้นที่ 1 รอรับเรื่อง",
+            })
+             if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt,this.sh_machine()}
+             else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
           },
           upload_img_font(e){
             const image = e.target.files[0];

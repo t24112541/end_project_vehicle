@@ -115,8 +115,8 @@
                   min="1950-01-01"
                 >
                       <v-spacer></v-spacer>
-                      <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
-                      <v-btn flat color="primary" @click="$refs.modal.save(std_birthday)">OK</v-btn></v-date-picker>
+                      <v-btn flat color="primary" @click="modal = false">ยกเลิก</v-btn>
+                      <v-btn flat color="primary" @click="$refs.modal.save(std_birthday)">ตกลง</v-btn></v-date-picker>
               </v-dialog>
 
               <!-- <v-text-field
@@ -140,9 +140,10 @@
           </v-layout>
         </v-container>
         <v-card-actions>
+          
+          <v-btn flat color="red lighten-2" @click="student()"><i class="fas fa-arrow-circle-left fa-2x"></i></v-btn>
           <v-spacer></v-spacer>
-          <v-btn flat color="red lighten-2" @click="student()">ยกเลิก</v-btn>
-          <v-btn flat color="primary" @click="std_add">บันทึก</v-btn>
+          <v-btn flat color="green lighten-2" @click="std_add"><i class="fas fa-save fa-2x"></i></v-btn>
         </v-card-actions>
         
     </v-card>

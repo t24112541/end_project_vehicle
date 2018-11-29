@@ -118,9 +118,10 @@
           </v-layout>
         </v-container>
         <v-card-actions>
+          
+          <v-btn flat color="red lighten-2" @click="teacher()"><i class="fas fa-arrow-circle-left fa-2x"></i></v-btn>
           <v-spacer></v-spacer>
-          <v-btn flat color="red lighten-2" @click="teacher()">ย้อนกลับ</v-btn>
-          <v-btn flat color="primary" @click="teacher_add()">บันทึก</v-btn>
+          <v-btn flat color="green lighten-2" @click="teacher_add()"><i class="fas fa-save fa-2x"></i></v-btn>
         </v-card-actions>
     </v-card>
 </template>

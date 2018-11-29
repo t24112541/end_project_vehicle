@@ -161,6 +161,18 @@
       { heading: 'โปรไฟล์' },
       { icon: 'fas fa-user-circle', text: 'แก้ไขข้อมูลส่วนตัว' ,link: '../../manage/profile'},
       { divider: true },
+        {
+          icon: 'keyboard_arrow_up',
+          'icon-alt': 'keyboard_arrow_down',
+          text: 'รายงาน',
+          model: false,
+          children: [
+          { icon: 'fas fa-book-open', text: 'รายงานการแจ้งหาย' ,link: '../../manage/student'},
+          ]
+        },
+      { divider: true },
+      { icon: 'fas fa-book-open', text: 'การแจ้งหาย' ,link: '../../manage/missing'},
+      { divider: true },
        { heading: 'จัดการข้อมูล' },
         {
           icon: 'keyboard_arrow_up',
@@ -196,19 +208,20 @@
             { icon:'fas fa-place-of-worship' ,text: 'แผนกวิชา' ,link: '/manage/department_log/log_department'},
             { icon:'fas fa-users', text: 'กลุ่มการเรียน' ,link: '/manage/group_log/group_log'},
             { icon:'fas fa-motorcycle' ,text: 'ยานพาหนะ' ,link: '/manage/machine_log/machine_log'},
+            { icon:'fas fa-wrench' ,text: 'อุปกรณ์เสริม' ,link: '/manage/accessories_log/accessories_log'},
           ]
         },
         { divider: true },
-        { 
-         icon: 'keyboard_arrow_up',
-          'icon-alt': 'settings',
-          text: 'ตั้งค่า', 
-         model: false,
-          children: [
-            { icon:'fas fa-user-shield' ,text: 'ความปลอดภัย' ,link: '../../manage/security/set_password'},
-            { icon:'fas fa-sliders-h' ,text: 'ระบบ' },
-          ]},
-        { icon: 'help', text: 'ช่วยเหลือ' },
+        // { 
+        //  icon: 'keyboard_arrow_up',
+        //   'icon-alt': 'settings',
+        //   text: 'ตั้งค่า', 
+        //  model: false,
+        //   children: [
+        //     { icon:'fas fa-user-shield' ,text: 'ความปลอดภัย' ,link: '../../manage/security/set_password'},
+        //     { icon:'fas fa-sliders-h' ,text: 'ระบบ' },
+        //   ]},
+        // { icon: 'help', text: 'ช่วยเหลือ' },
         { icon: 'fas fa-sign-out-alt', text: 'ออกจากระบบ' ,link:"../../logout"},
         
       ],

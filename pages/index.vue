@@ -75,21 +75,21 @@ export default {
         })
         if(res.data){this.loading=false}
         if(res.data.ok==true){
-          if(res.data.status=="std"){
+          if(res.data.status=="pk_student"){
             sessionStorage.setItem("id",res.data.login.std_id)
             sessionStorage.setItem("username",res.data.login.std_username)
             sessionStorage.setItem("password",(res.data.login.std_password))
             sessionStorage.setItem("status",(res.data.status))
             this.$router.push({name:"mainpersonal"})
             // console.log(res.data)
-          }else if(res.data.status=="tch"){
+          }else if(res.data.status=="pk_teacher"){
             sessionStorage.setItem("id",res.data.login.t_id)
             sessionStorage.setItem("username",res.data.login.t_username)
             sessionStorage.setItem("password",(res.data.login.t_password))
             sessionStorage.setItem("status",(res.data.status))
             this.$router.push({name:"manage-machines"})
             // console.log(res.data)
-          }else if(res.data.status=="admin"){
+          }else if(res.data.status=="pk_admin"){
             sessionStorage.setItem("id",res.data.login[0].a_id)
             sessionStorage.setItem("username",res.data.login[0].a_username)
             sessionStorage.setItem("password",(res.data.login[0].a_password))

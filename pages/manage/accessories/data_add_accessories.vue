@@ -11,50 +11,29 @@
         <v-card-title
           class="grey lighten-4 py-4 title"
         >
-          เพิ่มข้อมูลอุปกรณ์เสริม
+          เพิ่มข้อมูลอุปกรณ์
           <v-spacer></v-spacer>
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
+            <v-flex xs12>
+              <p>ตำแหน่งเจ้าของอุปกรณ์ {{ position || '' }}</p>
+              <v-radio-group v-model="ac_u_table" :mandatory="false" row>
+                <v-radio label="ครู / บุคลากร" color="success" value="pk_teacher"></v-radio>
+                <v-radio label="นักเรียน / นักศึกษา" color="success" value="pk_student"></v-radio>
+              </v-radio-group>
+            </v-flex>
             <v-flex xs12 >
               <v-layout align-center>
                 <v-text-field
-                  
                   :rules="[rules.required]"
                   maxlength="10"
                   counter
-                  prepend-icon="fas fa-user"
-                  placeholder="รหัสเจ้าของพาหนะ"
-                  name="std_id"
-                  v-model="std_id"
-                ></v-text-field>
-              </v-layout>
-            </v-flex>
-            <v-flex xs12 >
-              <v-layout align-center>
-                <v-text-field
-                  
-                  :rules="[rules.required]"
-                  maxlength="50"
-                  counter
-                  prepend-icon="fas fa-id-card-alt fa-2x"
-                  placeholder="ทะเบียนรถ"
-                  name="mc_code"
-                  v-model="mc_code"
-                ></v-text-field>
-              </v-layout>
-            </v-flex>
-            <v-flex xs12 >
-              <v-layout align-center>
-                <v-text-field
-                  
-                  :rules="[rules.required]"
-                  maxlength="100"
-                  counter
-                  placeholder="แบรนด์รถ"
+                  placeholder="รหัสประจำตัวเจ้าของอุปกรณ์"
+                  label="เจ้าของอุปกรณ์"
                   prepend-icon="fas fa-car"
-                  name="mc_brand"
-                  v-model="mc_brand"
+                  name="ac_u_id"
+                  v-model="ac_u_id"
                 ></v-text-field>
               </v-layout>
             </v-flex>
@@ -62,16 +41,27 @@
               <v-layout align-center>
                 <v-text-field
                   :rules="[rules.required]"
-                  maxlength="100"
                   counter
-                  prepend-icon="fas fa-tachometer-alt"
-                  placeholder="รุ่นรถ"
-                  name="mc_series"
-                  v-model="mc_series"
+                  prepend-icon="fas fa-newspaper"
+                  label="ชื่อุปกรณ์"
+                  placeholder="ชื่อุปกรณ์"
+                  name="ac_name"
+                  v-model="ac_name"
                 ></v-text-field>
               </v-layout>
             </v-flex>
-
+            <v-flex xs12 >
+              <v-layout align-center>
+                <v-textarea
+                  :rules="[rules.required]"
+                  solo
+                  label="รายละเอียด"
+                  v-model="ac_description"
+                  prepend-icon="fas fa-id-card-alt fa-2x"
+                  placeholder="รายละเอียด"
+                ></v-textarea>
+              </v-layout>
+            </v-flex>
             <!-- image zone -->
             
               <v-flex xs4
@@ -147,9 +137,9 @@
           </v-layout>
         </v-container>
         <v-card-actions>
+          <v-btn flat color="red lighten-2" @click="accessories()"><i class="fas fa-arrow-circle-left fa-2x"></i></v-btn>
           <v-spacer></v-spacer>
-          <v-btn flat color="red lighten-2" @click="machine()">ย้อนกลับ</v-btn>
-          <v-btn flat color="primary"  @click="machine_add()">บันทึก</v-btn>
+          <v-btn flat color="green lighten-2"  @click="accessories_add()"><i class="fas fa-save fa-2x"></i></v-btn>
         </v-card-actions>
     </v-card>
 </template>
@@ -168,11 +158,13 @@
               img_font:[],
               img_side:[],
               img_rear:[],
-              mc_code:"",
-              mc_brand:"",
-              mc_series: '',
-              std_id: '',
-              img_img:"",
+              ac_description:"",
+              ac_u_id:"",
+              ac_name: '',
+              ac_u_table:"",
+
+              position:"",
+
               type_api:"",
               danger:false,
               conf_del:false,
@@ -183,30 +175,33 @@
               },
           }
         },
+        watch:{
+          ac_u_table(newValue){
+            if(newValue=="pk_teacher"){this.position="ครู / บุคลากร"}else{this.position="นักเรียน / นักศึกษา"}
+          }
+        },
         methods:{
-           async machine_add(){
-            if(this.mc_code!='' && this.mc_brand!=''&& this.mc_series!=''&& this.std_id!='' ){
-              let res=await this.$http.post("machine/machine_add",{
-                mc_code:this.mc_code,
-                mc_brand:this.mc_brand,
-                mc_series:this.mc_series,
-                std_id:this.std_id,
+           async accessories_add(){
+            if(this.ac_description!='' && this.ac_u_id!=''&& this.ac_name!='' ){
+              let res=await this.$http.post("accessories/accessories_add",{
+                ac_description:this.ac_description,
+                ac_u_id:this.ac_u_id,
+                ac_name:this.ac_name,
+                ac_u_table:this.ac_u_table,
 
-                // img_img:this.img_font,img_side,img_rear,
                 img_font:this.img_font,
                 img_side:this.img_side,
                 img_rear:this.img_rear,
-
-                
+                u_table:"pk_accessories",
                 u_id:sessionStorage.getItem("username"),
-                u_table:"pk_machine"
+
               })
-              if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
+              if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt,this.accessories()}
               else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
             }else{this.danger=true,this.alt_txt="กรุณากรอกข้อมูลให้ครบ",this.type_api="error"}
           },
-          machine(){
-            this.$router.push({name:"manage-machines"})
+          accessories(){
+            this.$router.push({name:"manage-accessories"})
           },
           upload_img_font(e){
             const image = e.target.files[0];

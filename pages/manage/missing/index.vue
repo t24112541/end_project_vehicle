@@ -1,25 +1,10 @@
 <template>
   <div>
-    <v-card>
-    <div class="cv_header padding-top-mn" >กลุ่มการเรียน</div>
-    <div class="cv_header xs12">
-      <v-btn
-        color="green lighten-2"
-        dark
-        small
-        absolute
-        top
-        right
-        fab
-        @click="group_add()"
-      >
-        <v-icon>add</v-icon>
-      </v-btn>
-    </div>
-    <v-spacer></v-spacer>
+    <v-card >
+    <div class="cv_header padding-top-mn" >การแจ้งหาย</div>
   <v-data-table
       :headers="headers"
-      :items="group"
+      :items="missing"
       :search="search"
       :pagination.sync="pagination"
       :loading=state
@@ -40,10 +25,11 @@
       </v-tooltip>
     </template>
     <template slot="items" slot-scope="props">
-      <tr v-on:click="list_group(props.item.g_id)">
-        <td class="text-xs-left">{{ props.item.g_code }}</td>
-        <td class="text-xs-left">{{ props.item.g_name }}</td>
-        <td class="text-xs-left">{{ props.item.d_name }}</td>
+      <tr v-on:click="list_missing(props.item.ms_id)" >
+        <td class="text-xs-left" >{{ props.item.ms_date }}</td>
+        <td class="text-xs-left">{{ props.item.ms_status }}</td>
+
+        <td class="text-xs-left">{{ props.item.u_ms_date }}</td>
 
       </tr>
     </template>
@@ -68,20 +54,21 @@
         selected: [],
         rows_per_page:[10,20,{"text":"แสดงทั้งหมด","value":-1}],//////////////////////////   teach me pleas!
         headers: [
-          { text: 'รหัสกลุ่มการเรียน', value: 'รหัสกลุ่มการเรียน',align: 'left',sortable: false, },
-          { text: 'ชื่อกลุ่มการเรียน', value: 'ชื่อกลุ่มการเรียน',align: 'left',sortable: false, },
-          { text: 'รหัสแผนก', value: 'รหัสแผนก',align: 'left',sortable: false,  },
+          { text: 'วันที่แจ้งหาย', value: 'วันที่แจ้งหาย',align: 'left',sortable: false, },
+          { text: 'สถานะการแจ้ง', value: 'สถานะการแจ้ง',align: 'left',sortable: false,  },
+          { text: 'วันที่มีการเปลี่ยนแปลง', value: 'วันที่มีการเปลี่ยนแปลง',align: 'left',sortable: false,  },
         ],
-        group: []
+        missing: [],
+        ms_type:""
       }
     },
     async created(){
       this.state=true
-      let res=await this.$http.get('/group/list')
-      //  console.log(res.data)
-      this.group=res.data.datas
-      // console.log("num=".res.data.num)
-      this.state=false
+     let res=await this.$http.get('/missing/list')
+    //  console.log(res.data.datas)
+     this.missing=res.data.datas
+     this.ms_type=res.data.type
+     this.state=false
     },
     computed: {
       pages () {
@@ -90,13 +77,9 @@
       }
     },
     methods:{
-      list_group(g_id){
-        // this.$router.replace('../manage/group/group_edit?g_id='+g_id)
-        this.$router.push({path: '../manage/group/group_edit?g_id='+g_id})
+      list_missing(ms_id){
+        this.$router.push({path: '../manage/missing/update_missing?ms_id='+ms_id})
       },
-      group_add(){
-        this.$router.push({path:"../manage/group/add_group"})
-      }
      
     }
   }

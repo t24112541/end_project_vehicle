@@ -3,8 +3,20 @@
     <v-card>
     <div class="cv_header padding-top-mn" >ข้อมูลยานพาหนะ</div>
     <div class="cv_header xs12">
-      
+      <v-btn
+        color="green lighten-2"
+        dark
+        small
+        absolute
+        top
+        right
+        fab
+        @click="machine_add()"
+      >
+        <v-icon>add</v-icon>
+      </v-btn>
     </div>
+    <v-spacer></v-spacer>
     <v-spacer></v-spacer>
   <v-data-table
       :headers="headers"
@@ -82,7 +94,9 @@
       list_machine(mc_id){
         this.$router.push({path: '../manage/machines/edit_machine?mc_id='+mc_id})
       },
-     
+     machine_add(){
+        this.$router.push({path:"../manage/machines/data_add_machine"})
+      }
     }
   }
 </script>

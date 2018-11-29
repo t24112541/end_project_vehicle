@@ -2,8 +2,20 @@
   <div><v-card>
     <div class="cv_header padding-top-mn" >ข้อมูลนักเรียน / นักศึกษา</div>
     <div class="cv_header xs12">
-      
+      <v-btn
+        color="green lighten-2"
+        dark
+        small
+        absolute
+        top
+        right
+        fab
+        @click="student_add()"
+      >
+        <v-icon>add</v-icon>
+      </v-btn>
     </div>
+    <v-spacer></v-spacer>
     <v-spacer></v-spacer>
   <v-data-table
       :headers="headers"
@@ -99,7 +111,9 @@
       list_student(std_id){
         this.$router.push({path: this.part_url+std_id})
       },
-     
+      student_add(){
+        this.$router.push({path:"../manage/student/add_student"})
+      }
     }
   }
 </script>
