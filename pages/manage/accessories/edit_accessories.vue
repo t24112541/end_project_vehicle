@@ -172,7 +172,7 @@
               <i class="fas fa-exclamation fa-2x"></i>
             </v-flex>
             <v-flex xs12>
-              แจ้งพาหนะสูญหาย
+              แจ้งอุปกรณ์สูญหาย
             </v-flex>
             
           </v-btn>
