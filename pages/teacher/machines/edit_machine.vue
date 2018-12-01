@@ -11,7 +11,7 @@
         <v-card-title
           class="grey lighten-4 py-4 title"
         >
-        <v-flex xs7 >
+        <v-flex xs10 >
           แก้ไขข้อมูลพาหนะ
         </v-flex>
         <v-flex xs2 >
@@ -24,20 +24,7 @@
             <i v-else class="fas fa-edit fa-2x "></i>
           </v-btn>
         </v-flex>
-        <v-flex xs2 >
-          <v-dialog v-model="conf_del" persistent max-width="290">
-            <v-btn  slot="activator" flat color="red lighten-2"><i class="fas fa-trash-alt fa-2x"></i></v-btn>
-            <v-card>
-              <v-card-title class="headline">ยืนยันการลบข้อมูล</v-card-title>
-              <v-card-text>ต้องการลบข้อมูล {{mc_code}}<br> ใช่หรือไม่?</v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="red lighten-2" flat @click.native="conf_del = false">ไม่ใช่</v-btn>
-                <v-btn color="primary" flat @click="machines_del()">ใช่</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </v-flex>
+       
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
@@ -195,7 +182,7 @@
 
 <script>
     export default {
-        layout: 'manage',
+        layout: 'teacher',
 
         data () {
             return {
@@ -244,7 +231,7 @@
           },
           async sh_machine(){
             let res=await this.$http.get('/machine/sh_machine/'+this.$route.query.mc_id)
-            // console.log(res.data.datas)
+            console.log(res.data.datas)
             this.mc_id=this.$route.query.mc_id
             this.mc_code=res.data.datas[0].mc_code
             this.mc_brand=res.data.datas[0].mc_brand
@@ -290,7 +277,7 @@
              else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
           },
           machine(){
-            this.$router.push({name:"manage-machines"})
+            this.$router.push({name:"teacher-machines"})
           },
           async missing(mc_id){
             let res=await this.$http.post("/missing/missing",{

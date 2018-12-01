@@ -81,7 +81,7 @@
                 ></v-text-field>
               </v-layout>
             </v-flex>
-            <v-flex xs12 >
+            <!-- <v-flex xs12 >
               <v-layout align-center>
                 <v-text-field 
                   :disabled="!isEditing"
@@ -94,7 +94,7 @@
                   v-model="t_username"
                 ></v-text-field>
               </v-layout>
-            </v-flex>
+            </v-flex> -->
             <v-flex xs12 >
               <v-layout align-center>
                 <v-text-field
@@ -116,9 +116,10 @@
           </v-layout>
         </v-container>
         <v-card-actions>
+          
+          <v-btn flat color="red lighten-2" @click="teacher()"><i class="fas fa-arrow-circle-left fa-2x"></i></v-btn>
           <v-spacer></v-spacer>
-          <v-btn flat color="red lighten-2" @click="teacher()">ย้อนกลับ</v-btn>
-          <v-btn flat color="primary" :disabled="!isEditing" @click="profile_update()">บันทึก</v-btn>
+          <v-btn flat color="green lighten-2" :disabled="!isEditing" @click="profile_update()"><i class="fas fa-save fa-2x"></i></v-btn>
         </v-card-actions>
     </v-card>
 </template>
@@ -128,7 +129,7 @@
         data () {
           return {
               t_id:sessionStorage.getItem("id"),
-              // t_code:sessionStorage.getItem("t_code"),
+              status:sessionStorage.getItem("status"),
               // t_name:sessionStorage.getItem("t_name"),
               // t_dep:sessionStorage.getItem("t_dep"),
               // t_tel:sessionStorage.getItem("t_tel"),
@@ -154,15 +155,7 @@
             alt_txt:"",
             stg_password: false,
 
-            gro1: [
-              'IT A1'
-            ],
-            gro2: [
-              'IT B1'
-            ],
-            gro3: [
-             'IT C1'
-            ],
+
              rules: {
                 required: value => !!value || 'ห้ามว่าง.',
                 // min: v => v.length >= 8 || 'Password ไม่ควรน้อยกว่า 8 ตัวอักษร',
@@ -176,7 +169,16 @@
         },
         methods:{
             async sh_profile(){
-              let res=await this.$http.post('/teacher/sh_profile/',{t_id:this.t_id})
+              if(this.status=="pk_admin"){
+                let res=await this.$http.post('/teacher/sh_profile/',{a_id:this.t_id})
+              }
+              else if(this.status=="pk_teacher"){
+                let res=await this.$http.post('/teacher/sh_profile/',{t_id:this.t_id})
+              }
+              else if(this.status=="pk_student"){
+                let res=await this.$http.post('/student/sh_profile/',{std_id:this.t_id})
+              }
+              
               this.t_id=this.$route.query.t_id
               this.t_code=res.data.datas.t_code
               this.t_name=res.data.datas.t_name

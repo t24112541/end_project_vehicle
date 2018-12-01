@@ -41,19 +41,7 @@
                 ></v-text-field>
               </v-layout>
             </v-flex>
-            <v-flex xs12 >
-              <v-layout align-center>
-                <v-text-field 
-                  :rules="[rules.required]"
-                  maxlength="100"
-                  counter
-                  prepend-icon="fas fa-archway fa-2x"
-                  placeholder="แผนกวิชา"
-                  name="t_dep"
-                  v-model="t_dep"
-                ></v-text-field>
-              </v-layout>
-            </v-flex>
+            
             <v-flex xs12 >
               <v-layout align-center>
                 <v-text-field 
@@ -67,53 +55,41 @@
                 ></v-text-field>
               </v-layout>
             </v-flex>
-            <v-flex xs4>
-              <v-autocomplete
-                prepend-icon="fas fa-users"
-                :loading="loading"
-                :items="group"
-                :search-input.sync="sh_gro1"
-                v-model="mst_1"
-                cache-items
-                class="mx-3"
-                flat
-                hide-no-data
-                hide-details
-                label="รหัสกลุ่มการเรียน"
-                solo
-              ></v-autocomplete>
+            <v-flex xs12 >
+              <v-layout align-center>
+                <i style="color:#757575" class="fas fa-archway fa-2x fa-2x"></i>
+                <select  v-model="t_dep" class="form-control minimal padding-top-mn" placeholder="">
+                  <option disabled  >แผนกวิชา</option>
+                  <option v-for="dep in department" v-bind:value="dep.d_code" v-bind:key="dep.d_code">
+                    {{ dep.d_name }}
+                  </option>
+                </select>
+
+              </v-layout>
+            </v-flex>
+            <v-flex xs4 >
+              <select  v-model="mst_1" class="form-control minimal padding-top-mn" placeholder="">
+                <option disabled  >กลุ่มการเรียนที่1</option>
+                <option v-for="gr in group" v-bind:value="gr.g_code" v-bind:key="gr.g_code">
+                  {{ gr.g_name }}
+                </option>
+              </select>
             </v-flex>
             <v-flex xs4>
-              <v-autocomplete
-                prepend-icon="fas fa-users"
-                :loading="loading"
-                :items="group"
-                :search-input.sync="sh_gro2"
-                v-model="mst_2"
-                cache-items
-                class="mx-3"
-                flat
-                hide-no-data
-                hide-details
-                label="รหัสกลุ่มการเรียน"
-                solo
-              ></v-autocomplete>
+              <select v-model="mst_2" class="form-control minimal padding-top-mn" placeholder="">
+                <option disabled  >กลุ่มการเรียนที่2</option>
+                <option v-for="gr in group" v-bind:value="gr.g_code" v-bind:key="gr.g_code">
+                  {{ gr.g_name }}
+                </option>
+              </select>
             </v-flex>
             <v-flex xs4>
-              <v-autocomplete
-                prepend-icon="fas fa-users"
-                :loading="loading"
-                :items="group"
-                :search-input.sync="sh_gro3"
-                v-model="mst_3"
-                cache-items
-                class="mx-3"
-                flat
-                hide-no-data
-                hide-details
-                label="รหัสกลุ่มการเรียน"
-                solo
-              ></v-autocomplete>
+              <select v-model="mst_3" class="form-control minimal padding-top-mn" placeholder="">
+                <option disabled  >กลุ่มการเรียนที่3</option>
+                <option v-for="gr in group" v-bind:value="gr.g_code" v-bind:key="gr.g_code">
+                  {{ gr.g_name }}
+                </option>
+              </select>
             </v-flex>
           </v-layout>
         </v-container>
@@ -133,12 +109,13 @@
             return {
               t_code:"",
               t_name:"",
-              t_dep:"",
+              t_dep:"แผนกวิชา",
               t_tel:"",
 
-              mst_1: '',
-              mst_2: '',
-              mst_3: '',
+              mst_1: null ||'กลุ่มการเรียนที่1',
+              mst_2: null ||'กลุ่มการเรียนที่2',
+              mst_3: null ||"กลุ่มการเรียนที่3",
+              department:[],
 
               type_api:"",
               danger:false,
@@ -147,9 +124,7 @@
               sh_gro1: null,
               sh_gro2: null,
               sh_gro3: null,
-              group: [
-              
-              ],
+              group: [],
               rules: {
                 required: value => !!value || 'ห้ามว่าง.',
                 // counter: value => value.length <= 10 || 'เต็ม 10 ตัวอักษร',
@@ -159,23 +134,27 @@
     
         },
         watch: {
-          sh_gro1 (val) {
-            val && val !== this.mst_1 && this.querySelections(val)
+          async t_dep(newValue){
+            let res=await this.$http.post('/group/cus_select',{t_dep:newValue})
+            // console.log(res.data.datas)
+            this.group=res.data.datas
           },
-          sh_gro2 (val) {
-            val && val !== this.mst_2 && this.querySelections(val)
-          },
-          sh_gro3 (val) {
-            val && val !== this.mst_3 && this.querySelections(val)
-          }
+          //  std_prename(newValue){
+          //   if(newValue=="นาย"){this.std_gender="ช"}else{this.std_gender="ญ"}
+          // },
         },
         async created(){
-          let res=await this.$http.get('/group/cus_select/g_code')
+          let res=await this.$http.get('/group/list')
           // console.log(res.data.datas)
           this.group=res.data.datas
-      
+          let res2=await this.$http.get('/department/list')
+            // console.log(res.data.datas)
+          this.department=res2.data.datas
         },
         methods: {
+          async department(){
+           
+          },
           querySelections (v) {
             this.loading = true
             setTimeout(() => {
@@ -193,6 +172,9 @@
                 t_name:this.t_name,
                 t_dep:this.t_dep,
                 t_tel:this.t_tel,
+                mst_1:this.mst_1,
+                mst_2:this.mst_2,
+                mst_3:this.mst_3,
                 u_id:sessionStorage.getItem("username")
               })
               if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt
