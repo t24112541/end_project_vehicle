@@ -80,7 +80,7 @@ export default {
             sessionStorage.setItem("username",res.data.login.std_username)
             sessionStorage.setItem("password",(res.data.login.std_password))
             sessionStorage.setItem("status",(res.data.status))
-            this.$router.push({name:"mainpersonal"})
+            this.$router.push({path: "/student/missing"})
             // console.log(res.data)
           }else if(res.data.status=="pk_teacher"){
             sessionStorage.setItem("id",res.data.login.t_id)

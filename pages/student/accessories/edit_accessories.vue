@@ -171,7 +171,7 @@
 
 <script>
     export default {
-        layout: 'teacher',
+        layout: 'student',
 
         data () {
             return {
@@ -266,7 +266,7 @@
              else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
           },
           accessories(){
-            this.$router.push({name:"teacher-accessories"})
+            this.$router.push({name:"student-accessories"})
           },
           async missing(ac_id){
             let res=await this.$http.post("/missing/missing",{
