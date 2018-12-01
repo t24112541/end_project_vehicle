@@ -164,18 +164,18 @@
       items: [
       { heading: 'ออนไลน์' },
       { icon: 'fas fa-user-circle', text: sessionStorage.getItem("username") ,link: ''},
-      // { divider: true }, ../../manage/profile
+      // { divider: true }, ../../teacher/profile
       //   {
       //     icon: 'keyboard_arrow_up',
       //     'icon-alt': 'keyboard_arrow_down',
       //     text: 'รายงาน',
       //     model: false,
       //     children: [
-      //     { icon: 'fas fa-book-open', text: 'รายงานการแจ้งหาย' ,link: '../../manage/student'},
+      //     { icon: 'fas fa-book-open', text: 'รายงานการแจ้งหาย' ,link: '../../teacher/student'},
       //     ]
       //   },
       { divider: true },
-      { icon: 'fas fa-book-open', text: 'การแจ้งหาย' ,link: '../../manage/missing'},
+      { icon: 'fas fa-book-open', text: 'การแจ้งหาย' ,link: '../../teacher/missing'},
       { divider: true },
        { heading: 'จัดการข้อมูล' },
         // {
@@ -184,45 +184,29 @@
         //   text: 'เพิ่มข้อมูล',
         //   model: false,
         //   children: [
-        //     { icon:'add' ,text: 'นักเรียน / นักศึกษา' ,link: '../../manage/student/add_student'},
-        //     { icon:'add' ,text: 'ครู / บุคลากร' ,link: '../../manage/teacher/add_teacher'},
-        //     { icon:'add' ,text: 'แผนกวิชา' ,link: '../../manage/department/dep_add'},
-        //     { icon:'add', text: 'กลุ่มการเรียน' ,link: '../../manage/group/add_group'},
-        //     { icon:'add' ,text: 'ยานพาหนะ' ,link: '../../manage/machines/data_add_machine'},
+        //     { icon:'add' ,text: 'นักเรียน / นักศึกษา' ,link: '../../teacher/student/add_student'},
+        //     { icon:'add' ,text: 'ครู / บุคลากร' ,link: '../../teacher/teacher/add_teacher'},
+        //     { icon:'add' ,text: 'แผนกวิชา' ,link: '../../teacher/department/dep_add'},
+        //     { icon:'add', text: 'กลุ่มการเรียน' ,link: '../../teacher/group/add_group'},
+        //     { icon:'add' ,text: 'ยานพาหนะ' ,link: '../../teacher/machines/data_add_machine'},
         //   ]
         // },
 
-        { icon: 'fas fa-user-graduate', text: 'นักเรียน / นักศึกษา' ,link: '../../manage/student'},
-        { icon: 'fas fa-chalkboard-teacher', text: 'ครู / บุคลากร' ,link: '../../manage/teacher'},
-        { icon: 'fas fa-place-of-worship', text: 'แผนกวิชา' ,link: '../../manage/department'},
-        { icon: 'fas fa-users', text: 'กลุ่มการเรียน' ,link: '../../manage/group'},
-        { icon: 'fas fa-motorcycle', text: 'ยานพาหนะ' ,link: '../../manage/machines'},
-        { icon: 'fas fa-wrench', text: 'อุปกรณ์เสริม' ,link: '../../manage/accessories'},
+
+
+        { icon: 'fas fa-users', text: 'กลุ่มการเรียน' ,link: '../../teacher/group'},
+        { icon: 'fas fa-motorcycle', text: 'ยานพาหนะ' ,link: '../../teacher/machines'},
+        { icon: 'fas fa-wrench', text: 'อุปกรณ์เสริม' ,link: '../../teacher/accessories'},
 
         { divider: true },
-        { heading: 'การทำงาน' },
-        {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'fas fa-book',
-          text: 'บันทึกการทำงาน',
-          model: false,
-          children: [
-            { icon:'fas fa-user-graduate' ,text: 'นักเรียน / นักศึกษา' ,link: '/manage/student_log/student_log'},
-            { icon:'fas fa-chalkboard-teacher' ,text: 'ครู / บุคลากร' ,link: '/manage/teacher_log/teacher_log'},
-            { icon:'fas fa-place-of-worship' ,text: 'แผนกวิชา' ,link: '/manage/department_log/log_department'},
-            { icon:'fas fa-users', text: 'กลุ่มการเรียน' ,link: '/manage/group_log/group_log'},
-            { icon:'fas fa-motorcycle' ,text: 'ยานพาหนะ' ,link: '/manage/machine_log/machine_log'},
-            { icon:'fas fa-wrench' ,text: 'อุปกรณ์เสริม' ,link: '/manage/accessories_log/accessories_log'},
-          ]
-        },
-        { divider: true },
+       
         // { 
         //  icon: 'keyboard_arrow_up',
         //   'icon-alt': 'settings',
         //   text: 'ตั้งค่า', 
         //  model: false,
         //   children: [
-        //     { icon:'fas fa-user-shield' ,text: 'ความปลอดภัย' ,link: '../../manage/security/set_password'},
+        //     { icon:'fas fa-user-shield' ,text: 'ความปลอดภัย' ,link: '../../teacher/security/set_password'},
         //     { icon:'fas fa-sliders-h' ,text: 'ระบบ' },
         //   ]},
         // { icon: 'help', text: 'ช่วยเหลือ' },

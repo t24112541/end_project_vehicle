@@ -67,18 +67,7 @@
                 ></v-text-field>
               </v-layout>
             </v-flex>
-            <v-flex xs12 >
-              <v-layout align-center>
-                <v-text-field 
-                  :disabled="!isEditing"
-                  :rules="[rules.required]"
-                  prepend-icon="fas fa-archway fa-2x"
-                  placeholder="แผนกวิชา"
-                  name="t_dep"
-                  v-model="t_dep"
-                ></v-text-field>
-              </v-layout>
-            </v-flex>
+           
             <v-flex xs12 >
               <v-layout align-center>
                 <v-text-field 
@@ -93,42 +82,42 @@
                 ></v-text-field>
               </v-layout>
             </v-flex>
-            <v-flex xs4>
-              <v-select
-                :disabled="!isEditing"
-                :items="gro1"
-                v-model="std_gro1"
-                menu-props="auto"
-                label="กลุ่มการเรียนที่ 1"
-                hide-details
-                prepend-icon="fas fa-users"
-                single-line
-                ></v-select>
+             <v-flex xs12 >
+              <v-layout align-center>
+                <i style="color:#757575" class="fas fa-archway fa-2x fa-2x"></i>
+                <select  v-model="t_dep" class="form-control minimal padding-top-mn" placeholder="">
+                  <option disabled  >{{t_dep}}</option>
+                  <option v-for="dep in department" v-bind:value="dep.d_code" v-bind:key="dep.d_code">
+                    {{ dep.d_name }}
+                  </option>
+                </select>
+
+              </v-layout>
+            </v-flex>
+            <!-- <v-flex xs4>
+              <select v-model="mst_1" class="form-control minimal padding-top-mn" placeholder="">
+                <option disabled  >กลุ่มการเรียนที่1</option>
+                <option v-for="gr in group" v-bind:value="gr.g_code" v-bind:key="gr.g_code">
+                  {{ gr.g_name }}
+                </option>
+              </select>
             </v-flex>
             <v-flex xs4>
-              <v-select
-                :disabled="!isEditing"
-                :items="gro2"
-                v-model="std_gro2"
-                menu-props="auto"
-                label="กลุ่มการเรียนที่ 2"
-                hide-details
-                prepend-icon="fas fa-users"
-                single-line
-                ></v-select>
+              <select v-model="mst_2" class="form-control minimal padding-top-mn" placeholder="">
+                <option disabled  >กลุ่มการเรียนที่2</option>
+                <option v-for="gr in group" v-bind:value="gr.g_code" v-bind:key="gr.g_code">
+                  {{ gr.g_name }}
+                </option>
+              </select>
             </v-flex>
             <v-flex xs4>
-              <v-select
-                :disabled="!isEditing"
-                :items="gro3"
-                v-model="std_gro3"
-                menu-props="auto"
-                label="กลุ่มการเรียนที่ 3"
-                hide-details
-                prepend-icon="fas fa-users"
-                single-line
-                ></v-select>
-            </v-flex>
+              <select v-model="mst_3" class="form-control minimal padding-top-mn" placeholder="">
+                <option disabled  >กลุ่มการเรียนที่3</option>
+                <option v-for="gr in group" v-bind:value="gr.g_code" v-bind:key="gr.g_code">
+                  {{ gr.g_name }}
+                </option>
+              </select>
+            </v-flex> -->
            
           </v-layout>
         </v-container>
@@ -153,9 +142,13 @@
             t_username:"",
             t_password:"",
 
-            mst_1: '',
-            mst_2: '',
-            mst_3: '',
+            mst_1: null ||'กลุ่มการเรียนที่1',
+            mst_2: null ||'กลุ่มการเรียนที่2',
+            mst_3: null ||"กลุ่มการเรียนที่3",
+
+            group:[],
+
+            d_code:"",
 
             type_api:"",
             danger:false,
@@ -164,15 +157,6 @@
             isEditing:null,
             alt_txt:"",
 
-            gro1: [
-              'IT A1'
-            ],
-            gro2: [
-              'IT B1'
-            ],
-            gro3: [
-             'IT C1'
-            ],
             rules: {
               required: value => !!value || 'ห้ามว่าง.',
               // counter: value => value.length <= 10 || 'เต็ม 10 ตัวอักษร',
@@ -181,6 +165,9 @@
         },
         async created(){
           this.sh_teacher()
+          this.sh_group()
+        },
+        watch: {
         },
         methods:{
             conf_del(){this.conf_del=true},
@@ -201,13 +188,20 @@
             async sh_teacher(){
               let res=await this.$http.get('/teacher/sh_teacher/'+this.$route.query.t_id)
               this.t_id=this.$route.query.t_id
-              this.t_code=res.data.datas.t_code
-              this.t_name=res.data.datas.t_name
-              this.t_dep=res.data.datas.t_dep
-              this.t_tel=res.data.datas.t_tel
-              this.t_username=res.data.datas.t_username
-              this.t_password=res.data.datas.t_password
+              this.t_code=res.data.datas[0].t_code
+              this.t_name=res.data.datas[0].t_name
+              this.t_dep=res.data.datas[0].d_name
+              this.t_tel=res.data.datas[0].t_tel
+              this.t_username=res.data.datas[0].t_username
+              this.t_password=res.data.datas[0].t_password
+              this.d_code=res.data.datas[0].d_code
+              // console.log(res.data.datas)
             
+            },
+            async sh_group(){
+              let res=await this.$http.get('/group/list')
+              // console.log(res.data.datas)
+              this.group=res.data.datas
             },
             async teacher_update(t_id){
               //console.log("t_id"+t_id)
@@ -220,6 +214,9 @@
         				t_username:this.t_username,
         				t_password:this.t_password,
                 t_id:t_id,
+                mst_1:this.mst_1,
+                mst_2:this.mst_2,
+                mst_3:this.mst_3,
                 u_id:sessionStorage.getItem("username")
               })
               // console.log(res.data)

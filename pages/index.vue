@@ -87,14 +87,14 @@ export default {
             sessionStorage.setItem("username",res.data.login.t_username)
             sessionStorage.setItem("password",(res.data.login.t_password))
             sessionStorage.setItem("status",(res.data.status))
-            this.$router.push({name:"manage-machines"})
+            this.$router.push({path: "/teacher/group"})
             // console.log(res.data)
           }else if(res.data.status=="pk_admin"){
             sessionStorage.setItem("id",res.data.login[0].a_id)
             sessionStorage.setItem("username",res.data.login[0].a_username)
             sessionStorage.setItem("password",(res.data.login[0].a_password))
             sessionStorage.setItem("status",(res.data.status))
-            this.$router.push({name:"manage-machines"})
+            this.$router.push({path: "/manage/missing"})
             // console.log(res.data.login)
           }else if(res.data.status=="bld"){
             sessionStorage.setItem("id",res.data.login.bld_username)
