@@ -1,7 +1,7 @@
 {
-  "name": "app",
+  "name": "Veh",
   "version": "1.0.0",
-  "description": "app template",
+  "description": "vehicle app",
   "main": "index.js",
   "scripts": {
     "dev": "cross-env HOST=0.0.0.0 PORT=3000 nuxt",

@@ -97,6 +97,26 @@
                   v-model="std_lname"
                 ></v-text-field>
             </v-flex>
+             <v-flex xs6 >
+                <v-text-field
+                  prepend-icon="fas fa-phone-square"
+                  :disabled="!isEditing"
+                  maxlength="10"
+                  counter
+                  placeholder="เบอร์ติดต่อ"
+                  v-model="std_tel"
+                ></v-text-field>
+            </v-flex>
+            <v-flex xs6 >
+                <v-text-field
+                  prepend-icon="fas fa-phone-square"
+                  :disabled="!isEditing"
+                  maxlength="10"
+                  counter
+                  placeholder="เบอร์ติดต่อผู้ที่สามารถติดต่อได้"
+                  v-model="std_tel2"
+                ></v-text-field>
+            </v-flex>
             <v-flex xs12>
               <v-text-field
                 :disabled="!isEditing"
@@ -152,6 +172,9 @@
             g_code:"",
             g_name:"",
             d_name:"",
+            
+            std_tel:"",
+            std_tel2:"",
 
             type_api:"",
             danger:false,
@@ -187,7 +210,11 @@
         				std_birthday:this.std_birthday,
         				std_gender:this.std_gender,
         				std_blood:this.std_blood,
-        				g_code:this.g_code,
+                g_code:this.g_code,
+                  
+                std_tel:this.std_tel,
+                std_tel2:this.std_tel2,
+
                 std_id:std_id,
                 u_id:sessionStorage.getItem("username")
               })
@@ -212,6 +239,10 @@
               this.g_code=res.data.datas.g_code
               this.g_name=res.data.datas.g_name
               this.d_name=res.data.datas.d_name
+
+              this.std_tel=res.data.datas.std_tel
+              this.std_tel2=res.data.datas.std_tel2
+              
               // console.log(res.data)
             },
             async std_update(std_id){
@@ -228,6 +259,10 @@
         				std_blood:this.std_blood,
         				g_code:this.g_code,
                 std_id:std_id,
+
+                std_tel:this.std_tel,
+                std_tel2:this.std_tel2,
+
                 u_id:sessionStorage.getItem("username")
               })
               console.log(res.data)
