@@ -86,6 +86,26 @@
                   v-model="std_lname"
                 ></v-text-field>
             </v-flex>
+            <v-flex xs6 >
+                <v-text-field
+                  prepend-icon="fas fa-phone-square"
+                  :rules="[rules.required]"
+                  maxlength="10"
+                  counter
+                  placeholder="เบอร์ติดต่อ"
+                  v-model="std_tel"
+                ></v-text-field>
+            </v-flex>
+            <v-flex xs6 >
+                <v-text-field
+                  prepend-icon="fas fa-phone-square"
+                  :rules="[rules.required]"
+                  maxlength="10"
+                  counter
+                  placeholder="เบอร์ติดต่อผู้ที่สามารถติดต่อได้"
+                  v-model="std_tel2"
+                ></v-text-field>
+            </v-flex>
            <v-flex xs12>
 
              <v-dialog
@@ -165,6 +185,10 @@
             std_pin_id:"",
             std_birthday:"",
             std_blood:"",
+
+            std_tel:"",
+            std_tel2:"",
+
             g_code:"",
             type_api:"",
             danger:false,
@@ -209,6 +233,8 @@
               std_birthday:this.dateFormatted,
               std_blood:this.std_blood,
               g_code:this.g_code,
+              std_tel:this.std_tel,
+              std_tel2:this.std_tel2,
               u_id:sessionStorage.getItem("username")
             })
             if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt
@@ -217,7 +243,7 @@
             else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
           },
           async sh_group(){
-            let res=await this.$http.get('/group/list/')
+            // let res=await this.$http.get('/group/list/')
             // this.item_group=res.data.datas.g_id  
             // console.log(res.data.datas.g_id)
             // console.log("item_group="+this.item_group.g_code)
