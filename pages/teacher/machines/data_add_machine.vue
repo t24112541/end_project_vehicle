@@ -186,7 +186,7 @@
         },
         methods:{
            async machine_add(){
-            if(this.mc_code!='' && this.mc_brand!=''&& this.mc_series!=''&& this.std_id!='' ){
+            if(this.mc_code!='' && this.mc_brand!=''&& this.mc_series!=''&& this.std_id!='' &&this.img_font!=''&&this.img_side!=''&&this.img_rear!=''){
               let res=await this.$http.post("machine/machine_add",{
                 mc_code:this.mc_code,
                 mc_brand:this.mc_brand,
@@ -202,9 +202,15 @@
                 u_id:sessionStorage.getItem("username"),
                 u_table:"pk_machine"
               })
-              if(res.data.ok==true){this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt
-              this.machine()}
-              else{this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt}
+              if(res.data.ok==true){
+                this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt
+              this.machine()
+              
+              }
+              else{
+                this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt
+                console.log(res.data.txt)
+              }
             }else{this.danger=true,this.alt_txt="กรุณากรอกข้อมูลให้ครบ",this.type_api="error"}
           },
           machine(){

@@ -102,15 +102,14 @@
               </v-flex>
 
             <v-flex xs12>
-              <p>ตำแหน่งเจ้าของอุปกรณ์ {{ position || '' }}</p>
-              
+           
             </v-flex>
             <v-flex xs12 >
               <v-layout align-center>
                 <v-text-field
                   :disabled="true"
                   :rules="[rules.required]"
-                  maxlength="10"
+                  
                   counter
                   placeholder="รหัสประจำตัวเจ้าของอุปกรณ์"
                   label="เจ้าของอุปกรณ์"

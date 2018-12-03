@@ -45,7 +45,7 @@
               <v-layout align-center>
                <v-text-field
                   :rules="[rules.required]"
-                  maxlength="10"
+                
                   counter
                   prepend-icon="fas fa-th"
                   placeholder="รหัสกลุ่มการเรียน"

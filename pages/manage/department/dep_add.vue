@@ -19,7 +19,7 @@
               <v-layout align-center>
                 <v-text-field
                   :rules="[rules.required]"
-                  maxlength="10"
+             
                   counter
                   prepend-icon="fas fa-credit-card"
                   placeholder="รหัสแผนก"
@@ -32,7 +32,7 @@
               <v-layout align-center>
                 <v-text-field
                   :rules="[rules.required]"
-                  maxlength="100"
+               
                   counter
                   prepend-icon="fas fa-place-of-worship"
                   placeholder="ชื่อแผนก"

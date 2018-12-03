@@ -182,7 +182,7 @@
         },
         methods:{
            async accessories_add(){
-            if(this.ac_description!='' && this.ac_name!='' ){
+            if(this.ac_description!='' && this.ac_name!='' &&this.img_font!=''&&this.img_side!=''&&this.img_rear!=''){
               let res=await this.$http.post("accessories/accessories_add",{
                 ac_description:this.ac_description,
                 ac_u_id:sessionStorage.getItem("username"),

@@ -2,13 +2,17 @@
   <div>
     <v-card >
     <div class="cv_header padding-top-mn" >การแจ้งหาย</div>
-    <v-flex xs12>
-      <p>ตำแหน่งเจ้าของอุปกรณ์ {{ position || '' }}</p>
-        <v-radio-group v-model="type" :mandatory="false" row>
+
+
+    <v-flex xs12 class="paddign" >
+      <p>ประเภทของที่หาย </p>
+        <v-radio-group v-model="type" :mandatory="false" row >
           <v-radio label="พาหนะ" color="success" value="pk_machine" active></v-radio>
           <v-radio label="อุปกรณ์" color="success" value="pk_accessories"></v-radio>
         </v-radio-group>
     </v-flex>
+
+
   <v-data-table
       :headers="headers"
       :items="missing"

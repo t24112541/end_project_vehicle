@@ -78,8 +78,8 @@
       fixed
     >
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <v-toolbar-side-icon><i class="fas fa-motorcycle fa-2x"></i></v-toolbar-side-icon>
-        <span class="hidden-sm-and-down">CTC Parking</span>
+        <v-toolbar-side-icon><img :src="require('@/static/image/new_logo_white.png')" class="icon_login" style="width:120%"></v-toolbar-side-icon>
+        <span class="">CTC Vehicle</span>
       </v-toolbar-title>
       <!-- <v-text-field
         flat
@@ -91,8 +91,8 @@
         class="hidden-sm-and-down"
       ></v-text-field> -->
       <v-spacer></v-spacer>
-      {{username}}
-      {{status}}
+      <!-- {{username}}
+      {{status}} -->
       <!-- <v-btn icon>
       <v-badge right
         v-model="noti_sh"
@@ -163,6 +163,7 @@
       drawer: null,
       items: [
       { heading: 'ออนไลน์' },
+      
       { icon: 'fas fa-user-circle', text: sessionStorage.getItem("username") ,link: ''},
       // { divider: true }, ../../teacher/profile
       //   {
@@ -175,6 +176,7 @@
       //     ]
       //   },
       { divider: true },
+      { icon: 'fas fa-home', text: 'หน้าแรก' ,link: '../../teacher/home'},
       { icon: 'fas fa-book-open', text: 'การแจ้งหาย' ,link: '../../teacher/missing'},
       { divider: true },
        { heading: 'จัดการข้อมูล' },

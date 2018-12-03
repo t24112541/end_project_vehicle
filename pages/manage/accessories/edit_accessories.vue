@@ -115,8 +115,9 @@
               </v-flex>
 
             <v-flex xs12>
-              <p>ตำแหน่งเจ้าของอุปกรณ์ {{ position || '' }}</p>
-              
+                <v-btn  color="#55b159" style="font-size:110%;width:95%;color:#fff" @click="sh_std(ac_u_id)">
+                 <i class="fas fa-user fa-2x"></i>เจ้าของพาหนะ: <v-spacer></v-spacer>{{u_name}} <v-spacer></v-spacer>
+                </v-btn>
             </v-flex>
             <v-flex xs12 >
               <v-layout align-center>
@@ -220,6 +221,12 @@
           this.sh_accessories()
         },
         methods:{
+          async sh_std(ac_u_id){
+            let res=await this.$http.post('/student/std_id/',{
+              std_code:this.ac_u_id,
+            })
+            this.$router.push({path: '../../manage/student/edit_student?std_id='+res.data.datas[0].std_id})
+          },
           conf_del(){this.conf_del=true},
           async accessoriess_del(){
             let res=await this.$http.post('/accessories/accessories_del/',{

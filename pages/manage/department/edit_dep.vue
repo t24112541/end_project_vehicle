@@ -46,7 +46,7 @@
                 <v-text-field
                   :disabled="!isEditing"
                   :rules="[rules.required]"
-                  maxlength="10"
+              
                   counter
                   prepend-icon="fas fa-credit-card"
                   placeholder="รหัสแผนก"

@@ -186,7 +186,7 @@
         },
         methods:{
            async machine_add(){
-            if(this.mc_code!='' && this.mc_brand!=''&& this.mc_series!=''){
+            if(this.mc_code!='' && this.mc_brand!=''&& this.mc_series!=''&&this.img_font!=''&&this.img_side!=''&&this.img_rear!=''){
               let res=await this.$http.post("machine/machine_add",{
                 mc_code:this.mc_code,
                 mc_brand:this.mc_brand,

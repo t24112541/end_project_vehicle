@@ -113,7 +113,7 @@ var moment =require("moment");
               id:id,
               data:"pk_department_log",
               target:"pk_department",
-              u_id:sessionStorage.getItem("id")
+              u_id:sessionStorage.getItem("username")
             })
               if(res.data.ok==true){//this.danger=true,this.alt_txt=res.data.txt,this.type_api=res.data.alt
                 this.$router.push({name: 'manage-department'})
