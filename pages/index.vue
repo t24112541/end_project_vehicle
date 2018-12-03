@@ -1,11 +1,11 @@
 <template>
  <div id="app">
-  <v-app id="inspire" class="grey lighten-4">
+  <v-app id="inspire" class="light-blue lighten-4">
     <v-content>
       <v-container @keypress.enter="fnc_login()" >
         <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4>
-            <v-card class="elevation-12" color="write lighten-4">
+          <v-flex xs12 sm8 md4 class="padding-top-mx">
+            
               <v-alert
                 v-model="danger"
                 dismissible
@@ -14,7 +14,7 @@
                 {{alt_txt}}
               </v-alert>
               <v-card-text>
-                <center><img :src="require('@/static/image/icon.png')" class="icon_login"></center>
+                <center><img :src="require('@/static/image/new_logo.png')" class="icon_login"></center>
                 <v-toolbar-title style="text-align:center"><h3>เข้าสู่ระบบ</h3></v-toolbar-title>
                 <v-form  >
                   <v-text-field :rules="[rules.required]" v-model="username" prepend-icon="person" name="username" label="ชื่อผู้ใช้" type="text"></v-text-field>
@@ -41,7 +41,7 @@
                 
                  </v-flex>
               </v-card-actions>
-            </v-card>
+            
           </v-flex>
         </v-layout>
       </v-container>
@@ -80,7 +80,7 @@ export default {
             sessionStorage.setItem("username",res.data.login.std_username)
             sessionStorage.setItem("password",(res.data.login.std_password))
             sessionStorage.setItem("status",(res.data.status))
-            this.$router.push({path: "/student/missing"})
+            this.$router.push({path: "/student/home"})
             // console.log(res.data)
           }else if(res.data.status=="pk_teacher"){
             sessionStorage.setItem("id",res.data.login.t_id)
@@ -94,14 +94,14 @@ export default {
             sessionStorage.setItem("username",res.data.login[0].a_username)
             sessionStorage.setItem("password",(res.data.login[0].a_password))
             sessionStorage.setItem("status",(res.data.status))
-            this.$router.push({path: "/manage/missing"})
+            this.$router.push({path: "/manage/home"})
             // console.log(res.data.login)
           }else if(res.data.status=="bld"){
             sessionStorage.setItem("id",res.data.login.bld_username)
             sessionStorage.setItem("username",res.data.login.bld_username)
             sessionStorage.setItem("password",(res.data.login.bld_password))
             sessionStorage.setItem("status",(res.data.status))
-            this.$router.push({name:"manage-machines"})
+            this.$router.push({name:"manage-home"})
             //  console.log(res.data)
           }
             

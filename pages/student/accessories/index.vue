@@ -76,7 +76,7 @@
     },
     async created(){
 
-        let res=await this.$http.post('/accessories/sh_accessories_w_std',{std_id:sessionStorage.getItem("id")})
+        let res=await this.$http.post('/accessories/sh_accessories_w_std',{std_id:sessionStorage.getItem("username")})
         this.datas=res.data.datas
         this.state=false
         // console.log(res.data.datas)   

@@ -40,7 +40,7 @@
         <td class="text-xs-left xs10">{{ props.item.mc_code }}</td>
         <td class="text-xs-left">{{ props.item.mc_brand }}</td>
         <td class="text-xs-left">{{ props.item.mc_series }}</td>
-        <td class="text-xs-left">{{ props.item.std_id }}</td>
+        <td class="text-xs-left">{{ props.item.u_id }}</td>
         <td class="text-xs-left">
           <v-flex>
               <v-btn flat icon color="green" v-on:click="restore(props.item.run_id)">

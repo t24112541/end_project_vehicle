@@ -116,14 +116,9 @@
 
             <v-flex xs12 >
               <v-layout align-center>
-                <v-text-field
-                  :disabled="true"
-                  maxlength="50"
-                  counter
-                  prepend-icon="fas fa-user"
-                  label="ชื่อเจ้าของพาหนะ"
-                  v-model="std_name"
-                ></v-text-field>
+                 <v-btn  color="#55b159" style="font-size:110%;width:95%;color:#fff" @click="sh_std(std_code)">
+                 <i class="fas fa-user fa-2x"></i>เจ้าของพาหนะ: <v-spacer></v-spacer>{{std_name}} <v-spacer></v-spacer>
+                </v-btn>
               </v-layout>
             </v-flex>
             <v-flex xs12 >
@@ -229,6 +224,12 @@
           this.sh_machine()
         },
         methods:{
+          async sh_std(std_code){
+            let res=await this.$http.post('/student/std_id/',{
+              std_code:this.std_code,
+            })
+            this.$router.push({path: '../../manage/student/edit_student?std_id='+res.data.datas[0].std_id})
+          },
           conf_del(){this.conf_del=true},
           async machines_del(){
             let res=await this.$http.post('/machine/machine_del/',{

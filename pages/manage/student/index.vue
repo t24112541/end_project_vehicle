@@ -1,6 +1,13 @@
 <template>
   <div><v-card>
     <div class="cv_header padding-top-mn" >ข้อมูลนักเรียน / นักศึกษา</div>
+    <div class="cv_header padding-top-mn"> 
+      <v-text-field
+              label="ค้นหาชื่อนักเรียน / นักศึกษา"
+              append-icon="search"
+              v-model="txt_search"
+            ></v-text-field>
+    </div>
     <div class="cv_header xs12">
       <v-btn
         color="green lighten-2"
@@ -66,6 +73,7 @@
     layout: 'manage',
     data () {
       return {
+        txt_search:"",
         state:true,
         search: '',
         pagination: {},
@@ -81,6 +89,19 @@
           { text: 'กลุ่ม', value: 'กลุ่ม',align: 'center',sortable: false,  },
         ],
         std:[]
+
+      }
+    },
+    watch:{ 
+      async txt_search(newValue){
+        let s=newValue
+        this.state=true
+        let res=await this.$http.post('/student/search',{
+          txt_search:s
+        })
+        // console.log(res.data)
+        this.std=res.data.datas
+        this.state=false
       }
     },
     async created(){

@@ -43,6 +43,7 @@
         </v-card-title>
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
+            <span class="headline">{{d_name}} กลุ่ม {{g_name}}</span>
             <v-flex xs12 >
               <v-layout align-center>
                 <v-text-field
@@ -65,17 +66,7 @@
                 ></v-text-field>
               </v-layout>
             </v-flex>
-            <v-flex xs12 >
-              <v-layout align-center>
-                <v-text-field
-                  :disabled="!isEditing"
-                  prepend-icon="fas fa-th"
-                  placeholder="รหัสกลุ่มการเรียน"
-                  name="g_code"
-                  v-model="g_code"
-                ></v-text-field>
-              </v-layout>
-            </v-flex>
+          
            <v-flex xs4>
               <v-select 
                 :disabled="!isEditing"
@@ -159,7 +150,8 @@
             std_blood: '',
             std_gender:'',
             g_code:"",
-
+            g_name:"",
+            d_name:"",
             type_api:"",
             danger:false,
             alt_txt:"",
@@ -217,6 +209,8 @@
               this.std_gender=res.data.datas.std_gender
               this.std_blood=res.data.datas.std_blood
               this.g_code=res.data.datas.g_code
+              this.g_name=res.data.datas.g_name
+              this.d_name=res.data.datas.d_name
               // console.log(res.data)
             },
             async std_update(std_id){
