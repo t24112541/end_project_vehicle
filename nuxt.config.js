@@ -34,7 +34,7 @@ module.exports = {
     theme_color: '#3B8070',
   },
   head: {
-    title: 'CTCParking',
+    title: 'Veh',
     meta: [
       { charset: 'utf-8' },
       { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
@@ -44,14 +44,14 @@ module.exports = {
       { name: 'mobile-web-app-capable', content: 'yes' },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { name: 'apple-mobile-web-app-status-bar-style', content: 'black' },
-      { name: 'msapplication-TileImage', content: '/icons/icon.png' },
+      { name: 'msapplication-TileImage', content: '/icon/veh.PNG' },
       { name: 'msapplication-TileColor', content: '#000' },
     ],
     link: [
-      { rel: 'shortcut icon', href: '/icons/icon.png' },
-      { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/icons/icon.png' },
-      { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/icons/icon.png' },
-      { rel: 'apple-touch-icon', href: '/icons/icon.png' },
+      { rel: 'shortcut icon', href: '/icon/veh.PNG' },
+      { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/icon/veh.PNG' },
+      { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/icon/veh.PNG' },
+      { rel: 'apple-touch-icon', href: '/icon/veh.PNG' },
       { rel: 'stylesheet', href: 'css/cv_style.css' },
       { rel: 'stylesheet', href: 'css/fontawesome-free/css/all.css' },
     ],
